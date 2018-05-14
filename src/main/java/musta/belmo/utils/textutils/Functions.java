@@ -2,7 +2,12 @@ package musta.belmo.utils.textutils;
 
 import org.apache.commons.lang3.StringUtils;
 
+import javax.swing.text.Highlighter;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 public class Functions {
@@ -49,5 +54,17 @@ public class Functions {
 
     public static String delete(String old, String regex) {
         return old.replaceAll(regex, "");
+    }
+
+    public static List<HighlightPosition> getHighlights(String inputText, String regex) {
+        List<HighlightPosition> highlightPositions = new ArrayList<>();
+        Pattern p = Pattern.compile(regex);
+        Matcher m = p.matcher(inputText);
+
+        while (m.find()) {
+            HighlightPosition highlightPosition = new HighlightPosition(m.start(), m.end());
+            highlightPositions.add(highlightPosition);
+        }
+        return highlightPositions;
     }
 }
