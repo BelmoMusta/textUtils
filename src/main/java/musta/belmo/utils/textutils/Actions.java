@@ -9,8 +9,10 @@ public enum Actions {
     TEST_REGEX("Highlight"),
     CAPITALIZE_EACH_WORDS("Capitalize each word"),
     CAMELCASE("CamelCase"),
+    UNCAMELCASE("Decompose CamelCase"),
     REDUCE_WHITE_SPACE("Reduce white spaces"),
     ENCODE_64("Encode 64"),
+    DECODE_64("Decode 64"),
     INDENT("Indent");
 
     private String label;

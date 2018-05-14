@@ -27,13 +27,12 @@ import java.util.HashMap;
  */
 public class TextLineNumber extends JPanel
         implements CaretListener, DocumentListener, PropertyChangeListener {
-    public final static float LEFT = 0.0f;
-    public final static float CENTER = 0.5f;
+
     public final static float RIGHT = 1.0f;
 
     private final static Border OUTER = new MatteBorder(0, 0, 0, 2, Color.GRAY);
 
-    private final static int HEIGHT = Integer.MAX_VALUE - 1000000;
+    private final static int MAX_HEIGHT = Integer.MAX_VALUE - 1000000;
 
     //  Text component this TextTextLineNumber component is in sync with
 
@@ -214,7 +213,7 @@ public class TextLineNumber extends JPanel
             int preferredWidth = insets.left + insets.right + width;
 
             Dimension d = getPreferredSize();
-            d.setSize(preferredWidth, HEIGHT);
+            d.setSize(preferredWidth, MAX_HEIGHT);
             setPreferredSize(d);
             setSize(d);
         }

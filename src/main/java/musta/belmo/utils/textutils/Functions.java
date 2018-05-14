@@ -2,7 +2,6 @@ package musta.belmo.utils.textutils;
 
 import org.apache.commons.lang3.StringUtils;
 
-import javax.swing.text.Highlighter;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -12,6 +11,7 @@ public class Functions {
 
     public static final boolean UPPER_CASE = true;
     public static final boolean LOWER_CASE = false;
+    private static final String CAMELCASE_REGEX = "(?<!(^|[A-Z]))(?=[A-Z])|(?<!^)(?=[A-Z][a-z])";
 
     public static String capitalizeEachWord(String text) {
         StringBuilder sb = new StringBuilder();
@@ -71,6 +71,10 @@ public class Functions {
 
     }
 
+    public static String decode64(String input) {
+        return new String(Base64.getDecoder().decode(input.getBytes()));
+    }
+
     public static String indent(String input) {
         StringBuilder sb = new StringBuilder();
         Scanner scanner = new Scanner(input);
@@ -79,7 +83,14 @@ public class Functions {
             sb.append('\t')
                     .append(scanner.nextLine()).append('\n');
         }
+        scanner.close();
         return sb.toString();
 
+    }
+
+    public static String uncamelcase(String input) {
+        StringBuilder sb = new StringBuilder();
+        Stream.of(input.split(CAMELCASE_REGEX)).forEach(word -> sb.append(word).append(' '));
+        return sb.toString().trim();
     }
 }
