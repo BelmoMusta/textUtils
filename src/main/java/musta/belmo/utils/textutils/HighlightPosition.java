@@ -30,8 +30,7 @@ public class HighlightPosition {
 
         HighlightPosition that = (HighlightPosition) o;
 
-        if (end != that.end) return false;
-        return start == that.start;
+        return end == that.end && start == that.start;
 
     }
 

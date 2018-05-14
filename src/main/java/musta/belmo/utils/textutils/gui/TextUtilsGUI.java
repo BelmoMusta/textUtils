@@ -4,17 +4,15 @@ import musta.belmo.utils.textutils.Actions;
 import musta.belmo.utils.textutils.Functions;
 import musta.belmo.utils.textutils.HighlightPosition;
 
-
 import javax.swing.*;
 import javax.swing.event.CaretEvent;
 import javax.swing.event.CaretListener;
 import javax.swing.text.BadLocationException;
-import javax.swing.text.Caret;
-import javax.swing.text.JTextComponent;
 import java.awt.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -31,7 +29,11 @@ public class TextUtilsGUI {
 
 
     private TextUtilsGUI() {
-        Stream.of(Actions.values()).forEach(actionChoice::addItem);
+
+        actionChoice.setRenderer(new ActionRenderer());
+        Stream.of(Actions.values())
+                .sorted(Comparator.comparing(Actions::name))
+                .forEach(action -> actionChoice.addItem(action ));
 
         TextLineNumber textLineNumber = new TextLineNumber(inputText);
         mScrollPane.setRowHeaderView(textLineNumber);
@@ -42,8 +44,6 @@ public class TextUtilsGUI {
                 switch (action) {
                     case DELETE_EMPTY_LINES:
                         inputText.setText(Functions.deleteEmptyLines(inputText.getText()));
-                        break;
-                    case TRIM:
                         break;
                     case CAPITALIZE:
                         inputText.setText(Functions.capitalize(inputText.getText()));
@@ -65,9 +65,8 @@ public class TextUtilsGUI {
                         inputText.setText(Functions.capitalizeEachWord(inputText.getText()));
                         break;
                     case DELETE:
-                        String old = inputText.getText();
-                        Functions.delete(old, regexField.getText());
-                        inputText.setText(old.replaceAll(regexField.getText(), ""));
+                        String result = Functions.delete(inputText.getText(), regexField.getText());
+                        inputText.setText(result);
                         break;
                     case REDUCE_WHITE_SPACE:
                         inputText.setText(Functions.reduceWhiteSpaces(inputText.getText()));
@@ -77,7 +76,7 @@ public class TextUtilsGUI {
                         inputText.setText(Functions.encode64(inputText.getText()));
                         break;
 
-                    case IENDENT:
+                    case INDENT:
                         inputText.setText(Functions.indent(inputText.getText()));
                         break;
                 }
