@@ -74,4 +74,18 @@ public class FunctionsTest {
         assertTrue(highlights.contains(highlightPosition2));
 
     }
+
+    @Test
+    public void replaceAccentedLetters() {
+        String expected = "aaaeeeeiiioouuAAAEEEE";
+        String result = Functions.replaceAccentedLetters("àâäêéëèîïìôòûùÀÂÄÉÈËÊ");
+        assertEquals(expected, result);
+    }
+
+    @Test
+    public void deleteSymbols() {
+        String expected = "abcdefgh";
+        String result = Functions.deleteSymbols("abc-de(f+g_h");
+        assertEquals(expected, result);
+    }
 }

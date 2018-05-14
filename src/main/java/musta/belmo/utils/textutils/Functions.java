@@ -2,6 +2,7 @@ package musta.belmo.utils.textutils;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.text.Normalizer;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -12,6 +13,8 @@ public class Functions {
     public static final boolean UPPER_CASE = true;
     public static final boolean LOWER_CASE = false;
     private static final String CAMELCASE_REGEX = "(?<!(^|[A-Z]))(?=[A-Z])|(?<!^)(?=[A-Z][a-z])";
+    private static final String SYMBOLS_REGEX = "[^\\p{L}\\p{Nd} ]+";
+
 
     public static String capitalizeEachWord(String text) {
         StringBuilder sb = new StringBuilder();
@@ -48,7 +51,6 @@ public class Functions {
         }
         return ret;
     }
-
 
     public static String delete(String old, String regex) {
         return old.replaceAll(regex, "");
@@ -92,5 +94,15 @@ public class Functions {
         StringBuilder sb = new StringBuilder();
         Stream.of(input.split(CAMELCASE_REGEX)).forEach(word -> sb.append(word).append(' '));
         return sb.toString().trim();
+    }
+
+    public static String replaceAccentedLetters(String input) {
+        String string = Normalizer.normalize(input, Normalizer.Form.NFD);
+        string = string.replaceAll("[^\\p{ASCII}]", "");
+        return string;
+    }
+
+    public static String deleteSymbols(String input) {
+        return delete(input, SYMBOLS_REGEX);
     }
 }

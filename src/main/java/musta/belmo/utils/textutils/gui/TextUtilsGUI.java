@@ -75,19 +75,23 @@ public class TextUtilsGUI {
                     case REDUCE_WHITE_SPACE:
                         inputText.setText(Functions.reduceWhiteSpaces(inputText.getText()));
                         break;
-
                     case ENCODE_64:
                         inputText.setText(Functions.encode64(inputText.getText()));
                         break;
                     case DECODE_64:
                         inputText.setText(Functions.decode64(inputText.getText()));
                         break;
-
                     case INDENT:
                         inputText.setText(Functions.indent(inputText.getText()));
                         break;
                     case UNCAMELCASE:
                         inputText.setText(Functions.uncamelcase(inputText.getText()));
+                        break;
+                    case REPLACE_ACCENTED:
+                        inputText.setText(Functions.replaceAccentedLetters(inputText.getText()));
+                        break;
+                    case DELETE_SYMBOLS:
+                        inputText.setText(Functions.deleteSymbols(inputText.getText()));
                         break;
                 }
             }

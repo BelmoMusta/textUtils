@@ -13,7 +13,9 @@ public enum Actions {
     REDUCE_WHITE_SPACE("Reduce white spaces"),
     ENCODE_64("Encode 64"),
     DECODE_64("Decode 64"),
-    INDENT("Indent");
+    INDENT("Indent"),
+    REPLACE_ACCENTED("Replace accented letters"),
+    DELETE_SYMBOLS("Delete symbols");
 
     private String label;
 
