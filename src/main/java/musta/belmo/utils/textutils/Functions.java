@@ -3,9 +3,7 @@ package musta.belmo.utils.textutils;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.swing.text.Highlighter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
@@ -66,5 +64,22 @@ public class Functions {
             highlightPositions.add(highlightPosition);
         }
         return highlightPositions;
+    }
+
+    public static String encode64(String input) {
+        return new String(Base64.getEncoder().encode(input.getBytes()));
+
+    }
+
+    public static String indent(String input) {
+        StringBuilder sb = new StringBuilder();
+        Scanner scanner = new Scanner(input);
+        while (scanner.hasNextLine()) {
+
+            sb.append('\t')
+                    .append(scanner.nextLine()).append('\n');
+        }
+        return sb.toString();
+
     }
 }

@@ -11,5 +11,7 @@ public enum Actions {
     CAPITALIZE_EACH_WORDS,
     CAMELCASE,
     REDUCE_WHITE_SPACE,
+    ENCODE_64,
+    IENDENT
 
 }

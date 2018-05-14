@@ -1,14 +1,21 @@
 package musta.belmo.utils.textutils.gui;
 
+import musta.belmo.utils.textutils.HighlightPosition;
+
 import javax.swing.*;
 import javax.swing.event.UndoableEditEvent;
 import javax.swing.event.UndoableEditListener;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DefaultHighlighter;
 import javax.swing.text.Document;
+import javax.swing.text.Highlighter;
 import javax.swing.undo.CannotUndoException;
 import javax.swing.undo.UndoManager;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.util.*;
+import java.util.List;
 
 public class TextArea extends JTextArea {
 
@@ -51,7 +58,6 @@ public class TextArea extends JTextArea {
                 }
             }
         });
-
     }
 
     public TextArea(String text) {
@@ -72,5 +78,20 @@ public class TextArea extends JTextArea {
 
     public TextArea(Document doc, String text, int rows, int columns) {
         super(doc, text, rows, columns);
+    }
+
+    public void addHighlisghts(List<HighlightPosition> highlights) {
+        Highlighter highlighter = super.getHighlighter();
+        highlighter.removeAllHighlights();
+        highlights.forEach(highlightPosition -> {
+            try {
+                highlighter.addHighlight(
+                        highlightPosition.getStart(),
+                        highlightPosition.getEnd(),
+                        DefaultHighlighter.DefaultPainter);
+            } catch (BadLocationException e1) {
+                e1.printStackTrace();
+            }
+        });
     }
 }

@@ -4,27 +4,30 @@ import musta.belmo.utils.textutils.Actions;
 import musta.belmo.utils.textutils.Functions;
 import musta.belmo.utils.textutils.HighlightPosition;
 
+
 import javax.swing.*;
+import javax.swing.event.CaretEvent;
+import javax.swing.event.CaretListener;
 import javax.swing.text.BadLocationException;
-import javax.swing.text.DefaultHighlighter;
-import javax.swing.text.Highlighter;
+import javax.swing.text.Caret;
+import javax.swing.text.JTextComponent;
 import java.awt.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.List;
 import java.util.stream.Stream;
 
 public class TextUtilsGUI {
     private JComboBox<Actions> actionChoice;
-    private JTextArea inputText;
+    private TextArea inputText;
     private JButton applyButton;
     private JPanel mPanel;
     private JTextField regexField;
     private JScrollPane mScrollPane;
     private SaveAsButton saveAs;
+    private JLabel labelL;
+    private JLabel labelC;
 
 
     private TextUtilsGUI() {
@@ -32,6 +35,7 @@ public class TextUtilsGUI {
 
         TextLineNumber textLineNumber = new TextLineNumber(inputText);
         mScrollPane.setRowHeaderView(textLineNumber);
+
         applyButton.addActionListener(e -> {
             Actions action = (Actions) actionChoice.getSelectedItem();
             if (action != null) {
@@ -54,22 +58,8 @@ public class TextUtilsGUI {
                         inputText.setText(Functions.changeCase(inputText.getText(), false));
                         break;
                     case TEST_REGEX:
-                        java.util.List<HighlightPosition> highlights = Functions.getHighlights(inputText.getText(), regexField.getText());
-                        Highlighter highlighter = inputText.getHighlighter();
-                        highlighter.removeAllHighlights();
-                        highlights.forEach(highlightPosition -> {
-                            try {
-                                highlighter.addHighlight(
-                                        highlightPosition.getStart(),
-                                        highlightPosition.getEnd(),
-                                        DefaultHighlighter.DefaultPainter);
-                            } catch (BadLocationException e1) {
-                                e1.printStackTrace();
-                            }
-
-                        });
-
-
+                        List<HighlightPosition> highlights = Functions.getHighlights(inputText.getText(), regexField.getText());
+                        inputText.addHighlisghts(highlights);
                         break;
                     case CAPITALIZE_EACH_WORDS:
                         inputText.setText(Functions.capitalizeEachWord(inputText.getText()));
@@ -82,24 +72,31 @@ public class TextUtilsGUI {
                     case REDUCE_WHITE_SPACE:
                         inputText.setText(Functions.reduceWhiteSpaces(inputText.getText()));
                         break;
+
+                    case ENCODE_64:
+                        inputText.setText(Functions.encode64(inputText.getText()));
+                        break;
+
+                    case IENDENT:
+                        inputText.setText(Functions.indent(inputText.getText()));
+                        break;
                 }
             }
         });
-
+        addCaretListenerForCursor();
         saveAs.setActionToPerform(() -> {
             JFileChooser jFileChooser = new JFileChooser();
             if (jFileChooser.showSaveDialog(mPanel) == JFileChooser.APPROVE_OPTION) {
-                File f = jFileChooser.getSelectedFile();
+                File file = jFileChooser.getSelectedFile();
                 try {
-                    FileWriter fw = new FileWriter(f);
-                    fw.append(inputText.getText());
-                    fw.close();
+                    FileWriter fileWriter = new FileWriter(file);
+                    fileWriter.append(inputText.getText());
+                    fileWriter.close();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         });
-
     }
 
     public static void main(String[] args) throws Exception {
@@ -124,4 +121,31 @@ public class TextUtilsGUI {
     private void createUIComponents() {
         inputText = new TextArea();
     }
+
+
+    void addCaretListenerForCursor() {
+        inputText.addCaretListener(new CaretListener() {
+            @Override
+            public void caretUpdate(CaretEvent e) {
+
+                JTextArea editArea = (JTextArea) e.getSource();
+                int linenum = 1;
+                int columnnum = 1;
+                int caretpos = editArea.getCaretPosition();
+
+                try {
+                    linenum = editArea.getLineOfOffset(caretpos);
+                    columnnum = caretpos - editArea.getLineStartOffset(linenum);
+                } catch (BadLocationException e1) {
+                    e1.printStackTrace();
+                }
+                linenum += 1;
+                labelC.setText("C:" + columnnum);
+                labelL.setText("L:" + linenum);
+
+            }
+        });
+    }
+
+
 }
