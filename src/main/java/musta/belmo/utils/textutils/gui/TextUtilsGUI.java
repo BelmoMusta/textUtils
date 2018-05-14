@@ -2,26 +2,39 @@ package musta.belmo.utils.textutils.gui;
 
 import musta.belmo.utils.textutils.Actions;
 import musta.belmo.utils.textutils.Functions;
+import musta.belmo.utils.textutils.HighlightPosition;
 
 
 import javax.swing.*;
+import javax.swing.event.CaretEvent;
+import javax.swing.event.CaretListener;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Caret;
+import javax.swing.text.JTextComponent;
 import java.awt.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.List;
 import java.util.stream.Stream;
 
 public class TextUtilsGUI {
     private JComboBox<Actions> actionChoice;
-    private JTextArea inputText;
+    private TextArea inputText;
     private JButton applyButton;
     private JPanel mPanel;
     private JTextField regexField;
     private JScrollPane mScrollPane;
+    private SaveAsButton saveAs;
+    private JLabel labelL;
+    private JLabel labelC;
 
-      private TextUtilsGUI() {
-        Stream.of(Actions.values()).forEach(actions ->
-                actionChoice.addItem(actions));
+
+    private TextUtilsGUI() {
+        Stream.of(Actions.values()).forEach(actionChoice::addItem);
+
         TextLineNumber textLineNumber = new TextLineNumber(inputText);
         mScrollPane.setRowHeaderView(textLineNumber);
-
 
         applyButton.addActionListener(e -> {
             Actions action = (Actions) actionChoice.getSelectedItem();
@@ -29,6 +42,8 @@ public class TextUtilsGUI {
                 switch (action) {
                     case DELETE_EMPTY_LINES:
                         inputText.setText(Functions.deleteEmptyLines(inputText.getText()));
+                        break;
+                    case TRIM:
                         break;
                     case CAPITALIZE:
                         inputText.setText(Functions.capitalize(inputText.getText()));
@@ -42,29 +57,47 @@ public class TextUtilsGUI {
                     case TO_LOWERCASE:
                         inputText.setText(Functions.changeCase(inputText.getText(), false));
                         break;
+                    case TEST_REGEX:
+                        List<HighlightPosition> highlights = Functions.getHighlights(inputText.getText(), regexField.getText());
+                        inputText.addHighlisghts(highlights);
+                        break;
                     case CAPITALIZE_EACH_WORDS:
                         inputText.setText(Functions.capitalizeEachWord(inputText.getText()));
                         break;
                     case DELETE:
                         String old = inputText.getText();
-                        Functions.delete(old,regexField.getText());
+                        Functions.delete(old, regexField.getText());
                         inputText.setText(old.replaceAll(regexField.getText(), ""));
                         break;
-
                     case REDUCE_WHITE_SPACE:
-                        String old_ = inputText.getText();
-                        inputText.setText(Functions.reduceWhiteSpaces(old_));
+                        inputText.setText(Functions.reduceWhiteSpaces(inputText.getText()));
                         break;
 
+                    case ENCODE_64:
+                        inputText.setText(Functions.encode64(inputText.getText()));
+                        break;
+
+                    case IENDENT:
+                        inputText.setText(Functions.indent(inputText.getText()));
+                        break;
                 }
             }
         });
-
-        /*******************CTRL Z*************************/
-
-        /********************************************/
+        addCaretListenerForCursor();
+        saveAs.setActionToPerform(() -> {
+            JFileChooser jFileChooser = new JFileChooser();
+            if (jFileChooser.showSaveDialog(mPanel) == JFileChooser.APPROVE_OPTION) {
+                File file = jFileChooser.getSelectedFile();
+                try {
+                    FileWriter fileWriter = new FileWriter(file);
+                    fileWriter.append(inputText.getText());
+                    fileWriter.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
-
 
     public static void main(String[] args) throws Exception {
         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -86,6 +119,33 @@ public class TextUtilsGUI {
     }
 
     private void createUIComponents() {
-        inputText = new TextArea();// TODO: place custom component creation code here;
+        inputText = new TextArea();
     }
+
+
+    void addCaretListenerForCursor() {
+        inputText.addCaretListener(new CaretListener() {
+            @Override
+            public void caretUpdate(CaretEvent e) {
+
+                JTextArea editArea = (JTextArea) e.getSource();
+                int linenum = 1;
+                int columnnum = 1;
+                int caretpos = editArea.getCaretPosition();
+
+                try {
+                    linenum = editArea.getLineOfOffset(caretpos);
+                    columnnum = caretpos - editArea.getLineStartOffset(linenum);
+                } catch (BadLocationException e1) {
+                    e1.printStackTrace();
+                }
+                linenum += 1;
+                labelC.setText("C:" + columnnum);
+                labelL.setText("L:" + linenum);
+
+            }
+        });
+    }
+
+
 }

@@ -2,7 +2,10 @@ package musta.belmo.utils.textutils;
 
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.Arrays;
+import javax.swing.text.Highlighter;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 public class Functions {
@@ -49,5 +52,34 @@ public class Functions {
 
     public static String delete(String old, String regex) {
         return old.replaceAll(regex, "");
+    }
+
+    public static List<HighlightPosition> getHighlights(String inputText, String regex) {
+        List<HighlightPosition> highlightPositions = new ArrayList<>();
+        Pattern p = Pattern.compile(regex);
+        Matcher m = p.matcher(inputText);
+
+        while (m.find()) {
+            HighlightPosition highlightPosition = new HighlightPosition(m.start(), m.end());
+            highlightPositions.add(highlightPosition);
+        }
+        return highlightPositions;
+    }
+
+    public static String encode64(String input) {
+        return new String(Base64.getEncoder().encode(input.getBytes()));
+
+    }
+
+    public static String indent(String input) {
+        StringBuilder sb = new StringBuilder();
+        Scanner scanner = new Scanner(input);
+        while (scanner.hasNextLine()) {
+
+            sb.append('\t')
+                    .append(scanner.nextLine()).append('\n');
+        }
+        return sb.toString();
+
     }
 }
