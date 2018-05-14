@@ -21,4 +21,24 @@ public class HighlightPosition {
     public int getEnd() {
         return this.end;
     }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof HighlightPosition)) return false;
+
+        HighlightPosition that = (HighlightPosition) o;
+
+        if (end != that.end) return false;
+        return start == that.start;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = end;
+        result = 31 * result + start;
+        return result;
+    }
 }
