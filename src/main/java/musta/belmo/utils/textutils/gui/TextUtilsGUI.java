@@ -136,7 +136,7 @@ public class TextUtilsGUI {
     }
 
 
-    void addCaretListenerForCursor() {
+    private void addCaretListenerForCursor() {
         inputText.addCaretListener(new CaretListener() {
             @Override
             public void caretUpdate(CaretEvent e) {
