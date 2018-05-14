@@ -32,8 +32,8 @@ public class FunctionsTest {
     @Test
     public void deleteEmptyLines()  {
 
-        String expected = "aaa\n\n\n\n\n bbb ccc";
-        String result = Functions.deleteEmptyLines("aaa bbb ccc");
+        String expected = "aaa \nbbb ccc";
+        String result = Functions.deleteEmptyLines("aaa \n\n\n\n\nbbb ccc");
         assertEquals(expected,result);
     }
 
@@ -57,5 +57,4 @@ public class FunctionsTest {
         String result = Functions.delete("aaabbbccc", "aaa");
         assertEquals(expected,result);
     }
-
 }
