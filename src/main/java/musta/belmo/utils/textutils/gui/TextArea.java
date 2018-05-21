@@ -14,13 +14,16 @@ import javax.swing.undo.UndoManager;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-import java.util.*;
 import java.util.List;
 
 public class TextArea extends JTextArea {
 
+    private  JScrollPane mScrollPane;
+
     public TextArea() {
         super();
+        TextLineNumber textLineNumber = new TextLineNumber(this);
+        mScrollPane.setRowHeaderView(textLineNumber);
 
         UndoManager undoManager = new UndoManager();
         Document doc =  getDocument();
@@ -93,5 +96,9 @@ public class TextArea extends JTextArea {
                 e1.printStackTrace();
             }
         });
+    }
+
+    public void setmScrollPane(JScrollPane mScrollPane) {
+        this.mScrollPane = mScrollPane;
     }
 }

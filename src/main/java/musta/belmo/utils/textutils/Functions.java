@@ -105,4 +105,6 @@ public class Functions {
     public static String deleteSymbols(String input) {
         return delete(input, SYMBOLS_REGEX);
     }
+
+
 }

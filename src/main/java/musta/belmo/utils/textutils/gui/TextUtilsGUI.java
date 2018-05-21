@@ -39,8 +39,7 @@ public class TextUtilsGUI {
                 .sorted(Comparator.comparing(Actions::name))
                 .forEach(action -> actionChoice.addItem(action));
 
-        TextLineNumber textLineNumber = new TextLineNumber(inputText);
-        mScrollPane.setRowHeaderView(textLineNumber);
+
 
         applyButton.addActionListener(e -> {
             Actions action = (Actions) actionChoice.getSelectedItem();
