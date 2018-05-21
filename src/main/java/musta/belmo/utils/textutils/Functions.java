@@ -1,5 +1,6 @@
 package musta.belmo.utils.textutils;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.text.Normalizer;
@@ -107,4 +108,35 @@ public class Functions {
     }
 
 
+    public static String randomString(int length) {
+        return randomString(length, true, true, true);
+    }
+
+    public static String randomUpercaseString(int length) {
+        return randomString(length, false, false, true);
+    }
+
+    public static String randomString(int length,
+                                      boolean withNumeric,
+                                      boolean withLowerCase,
+                                      boolean withUpperCase) {
+        StringBuilder sb = new StringBuilder();
+
+        while (sb.length() < length) {
+            char randomUpperCaseChar = (char) ('A' + new Random().nextInt('Z' - 'A'));
+            char randomLowerCaseChar = (char) ('a' + new Random().nextInt('z' - 'a'));
+            char randomNumChar = (char) ('0' + new Random().nextInt('9' - '0'));
+
+
+            int randomChoice = new Random().nextInt(3);
+
+            if (withUpperCase && randomChoice % 3 == 0)
+                sb.append(randomUpperCaseChar);
+            else if (withLowerCase && randomChoice % 3 == 1)
+                sb.append(randomLowerCaseChar);
+            else if (withNumeric && randomChoice % 3 == 2)
+                sb.append(randomNumChar);
+        }
+        return sb.toString();
+    }
 }

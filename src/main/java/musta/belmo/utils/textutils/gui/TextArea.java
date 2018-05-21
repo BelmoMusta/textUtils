@@ -24,7 +24,6 @@ public class TextArea extends JTextArea {
         super();
         TextLineNumber textLineNumber = new TextLineNumber(this);
         mScrollPane.setRowHeaderView(textLineNumber);
-
         UndoManager undoManager = new UndoManager();
         Document doc =  getDocument();
         doc.addUndoableEditListener(new UndoableEditListener() {

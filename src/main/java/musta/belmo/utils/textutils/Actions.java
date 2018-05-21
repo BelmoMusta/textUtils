@@ -15,12 +15,12 @@ public enum Actions {
     DECODE_64("Decode 64"),
     INDENT("Indent"),
     REPLACE_ACCENTED("Replace accented letters"),
-    DELETE_SYMBOLS("Delete symbols");
+    DELETE_SYMBOLS("Delete symbols"),
+    RANDOM_STRING("Random String");
 
     private String label;
 
     Actions(String label) {
-
         this.label = label;
     }
 
