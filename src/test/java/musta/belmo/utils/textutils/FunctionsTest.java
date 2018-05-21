@@ -88,4 +88,11 @@ public class FunctionsTest {
         String result = Functions.deleteSymbols("abc-de(f+g_h");
         assertEquals(expected, result);
     }
+
+    @Test
+    public void randomString() {
+        String expected = "abcdefgh";
+        String result = Functions.randomString(10);
+        System.out.println(result);
+    }
 }

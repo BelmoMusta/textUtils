@@ -6,6 +6,7 @@ import com.intellij.uiDesigner.core.Spacer;
 import musta.belmo.utils.textutils.Actions;
 import musta.belmo.utils.textutils.Functions;
 import musta.belmo.utils.textutils.HighlightPosition;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.swing.*;
 import javax.swing.event.CaretEvent;
@@ -92,6 +93,15 @@ public class TextUtilsGUI {
                         break;
                     case DELETE_SYMBOLS:
                         inputText.setText(Functions.deleteSymbols(inputText.getText()));
+                        break;
+
+                    case RANDOM_STRING:
+                        int length = 0;
+
+                        if (StringUtils.isNumeric(regexField.getText())) {
+                            length = Integer.parseInt(regexField.getText());
+                        }
+                        inputText.setText(Functions.randomString(length));
                         break;
                 }
             }
