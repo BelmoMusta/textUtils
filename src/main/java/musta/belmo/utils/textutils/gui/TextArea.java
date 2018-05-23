@@ -1,5 +1,6 @@
 package musta.belmo.utils.textutils.gui;
 
+import musta.belmo.utils.textutils.Functions;
 import musta.belmo.utils.textutils.HighlightPosition;
 
 import javax.swing.*;
@@ -18,22 +19,21 @@ import java.util.List;
 
 public class TextArea extends JTextArea {
 
-    private  JScrollPane mScrollPane;
+    TextArea inputText;
 
     public TextArea() {
         super();
-        TextLineNumber textLineNumber = new TextLineNumber(this);
-        mScrollPane.setRowHeaderView(textLineNumber);
+
         UndoManager undoManager = new UndoManager();
-        Document doc =  getDocument();
+        Document doc = getDocument();
         doc.addUndoableEditListener(new UndoableEditListener() {
             @Override
             public void undoableEditHappened(UndoableEditEvent e) {
                 undoManager.addEdit(e.getEdit());
             }
         });
-        InputMap im =  getInputMap(JComponent.WHEN_FOCUSED);
-        ActionMap am =  getActionMap();
+        InputMap im = getInputMap(JComponent.WHEN_FOCUSED);
+        ActionMap am = getActionMap();
         im.put(KeyStroke.getKeyStroke(KeyEvent.VK_Z, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()), "Undo");
         im.put(KeyStroke.getKeyStroke(KeyEvent.VK_Y, Toolkit.getDefaultToolkit().getMenuShortcutKeyMask()), "Redo");
         am.put("Undo", new AbstractAction() {
@@ -97,7 +97,69 @@ public class TextArea extends JTextArea {
         });
     }
 
-    public void setmScrollPane(JScrollPane mScrollPane) {
-        this.mScrollPane = mScrollPane;
+    public void deleteEmptyLines() {
+        setText(Functions.deleteEmptyLines(getText()));
+    }
+
+    public void capitalize() {
+        setText(Functions.capitalize(getText()));
+    }
+
+    public void camelCase() {
+        setText(Functions.camelCase(getText()));
+    }
+
+    public void upperCase() {
+        inputText.setText(Functions.changeCase(inputText.getText(), true));
+    }
+
+    public void lowerCase() {
+        inputText.setText(Functions.changeCase(inputText.getText(), false));
+    }
+
+    public void highlight(String regex) {
+        List<HighlightPosition> highlights = Functions.getHighlights(inputText.getText(), regex);
+        inputText.addHighlisghts(highlights);
+    }
+
+    public void capitalizeEachWord() {
+        inputText.setText(Functions.capitalizeEachWord(inputText.getText()));
+    }
+
+    public void delete(String regex) {
+        String result = Functions.delete(inputText.getText(), regex);
+        inputText.setText(result);
+    }
+
+    public void reduceWhiteSpaces() {
+        inputText.setText(Functions.reduceWhiteSpaces(inputText.getText()));
+    }
+
+    public void decode64() {
+        inputText.setText(Functions.decode64(inputText.getText()));
+    }
+
+    public void encode64() {
+        inputText.setText(Functions.encode64(inputText.getText()));
+    }
+
+    public void indent() {
+        inputText.setText(Functions.indent(inputText.getText()));
+    }
+
+    public void uncamelCase() {
+        inputText.setText(Functions.uncamelcase(inputText.getText()));
+    }
+
+    public void replaceAccentedLetters() {
+        inputText.setText(Functions.replaceAccentedLetters(inputText.getText()));
+    }
+
+    public void deleteSymbols() {
+        inputText.setText(Functions.deleteSymbols(inputText.getText()));
+    }
+
+    public void randomString(int length) {
+        inputText.setText(Functions.randomString(length));
     }
 }

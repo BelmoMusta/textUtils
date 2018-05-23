@@ -1,6 +1,5 @@
 package musta.belmo.utils.textutils;
 
-import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.text.Normalizer;

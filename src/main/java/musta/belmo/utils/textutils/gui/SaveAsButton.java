@@ -3,8 +3,6 @@ package musta.belmo.utils.textutils.gui;
 import musta.belmo.utils.textutils.VoidConsumer;
 
 import javax.swing.*;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
 
 
 /**
