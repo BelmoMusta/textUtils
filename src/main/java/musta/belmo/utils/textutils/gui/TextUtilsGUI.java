@@ -103,6 +103,18 @@ public class TextUtilsGUI {
                         }
                         inputText.setText(Functions.randomString(length));
                         break;
+
+                    case DELETE_LINES:
+                        String[] linesStr = regexField.getText().split("[,\\s;]");
+                        Integer[] lines = new Integer[linesStr.length];
+                        for (int i = 0; i < linesStr.length; i++) {
+                            lines[i] = Integer.valueOf(linesStr[i]);
+                        }
+                        String deleteLines = Functions.deleteLines(inputText.getText(), lines);
+
+                        inputText.setText(deleteLines);
+
+                        break;
                 }
             }
         });

@@ -138,4 +138,25 @@ public class Functions {
         }
         return sb.toString();
     }
+
+    public static String deleteLines(String text, Integer... lines) {
+
+        StringBuilder sb = new StringBuilder();
+        Scanner sc = new Scanner(text);
+
+        List<Integer> list = Arrays.asList(lines);
+        int counter = 1;
+        while (sc.hasNextLine()) {
+            String line = sc.nextLine();
+            if (list.contains(Integer.valueOf(counter))) {
+                counter++;
+                continue;
+            }
+
+            sb.append(line).append('\n');
+            counter++;
+        }
+        sc.close();
+        return sb.toString();
+    }
 }
