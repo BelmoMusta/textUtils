@@ -8,10 +8,10 @@ import javax.swing.*;
 /**
  * Created by mustabelmo on 13/05/2018.
  */
-public class SaveAsButton extends JButton {
+public class ActionButton extends JButton {
     private VoidConsumer actionToPerform ;
 
-    public SaveAsButton() {
+    public ActionButton() {
         super();
         addActionListener(event->{
             if(actionToPerform!=null) {
@@ -24,19 +24,19 @@ public class SaveAsButton extends JButton {
         this.actionToPerform = actionToPerform;
     }
 
-    public SaveAsButton(Icon icon) {
+    public ActionButton(Icon icon) {
         super(icon);
     }
 
-    public SaveAsButton(String text) {
+    public ActionButton(String text) {
         super(text);
     }
 
-    public SaveAsButton(Action a) {
+    public ActionButton(Action a) {
         super(a);
     }
 
-    public SaveAsButton(String text, Icon icon) {
+    public ActionButton(String text, Icon icon) {
         super(text, icon);
     }
 }

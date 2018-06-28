@@ -17,7 +17,9 @@ public enum Actions {
     REPLACE_ACCENTED("Replace accented letters"),
     DELETE_SYMBOLS("Delete symbols"),
     RANDOM_STRING("Random String"),
-    DELETE_LINES("Delete lines");
+    DELETE_LINES("Delete lines"),
+    UNDO("undo"),
+    REDO("redo");
 
     private String label;
 
