@@ -208,11 +208,11 @@ public class TextUtilsGUI {
         listButton.add(button16);
         listButton.add(button17);
         listButton.add(button18);
+
         try {
             for (int i = 0; i < values.length; i++) {
 
-                Ikon byDescription = null;
-                byDescription = FontAwesome.findByDescription(readFromProperties(values[i].name()));
+                Ikon byDescription = FontAwesome.findByDescription(readFromProperties(values[i].name()));
 
                 FontIcon fontIcon = FontIcon.of(byDescription);
                 JButton jButton = listButton.get(i);
@@ -228,7 +228,7 @@ public class TextUtilsGUI {
     }
 
     public static String readFromProperties(String key) throws IOException {
-        InputStream resourceAsStream = TextUtilsGUI.class.getClassLoader().getResource("application.propoerties").openStream();
+        InputStream resourceAsStream = TextUtilsGUI.class.getClassLoader().getResource("application.properties").openStream();
 
         Properties properties = new Properties();
         properties.load(resourceAsStream);
@@ -237,7 +237,7 @@ public class TextUtilsGUI {
 
     public static void main(String[] args) throws Exception {
         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        JFrame jf = new JFrame();
+        JFrame jf = new JFrame("Text Utils");
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -316,68 +316,68 @@ public class TextUtilsGUI {
         mPanel.add(spacer1, new GridConstraints(2, 0, 5, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(1, 1), null, 0, false));
         final JPanel panel1 = new JPanel();
         panel1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-        mPanel.add(panel1, new GridConstraints(1, 5, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
-        button12 = new JButton();
-        button12.setText("Button");
-        panel1.add(button12);
-        button8 = new JButton();
-        button8.setText("Button");
-        panel1.add(button8);
-        button9 = new JButton();
-        button9.setText("Button");
-        panel1.add(button9);
-        button10 = new JButton();
-        button10.setText("Button");
-        panel1.add(button10);
-        button11 = new JButton();
-        button11.setText("Button");
-        panel1.add(button11);
-        button13 = new JButton();
-        button13.setText("Button");
-        panel1.add(button13);
-        button14 = new JButton();
-        button14.setText("Button");
-        panel1.add(button14);
-        button15 = new JButton();
-        button15.setText("Button");
-        panel1.add(button15);
-        final JPanel panel2 = new JPanel();
-        panel2.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-        mPanel.add(panel2, new GridConstraints(0, 0, 1, 6, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
+        mPanel.add(panel1, new GridConstraints(0, 0, 1, 5, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
         button16 = new JButton();
         button16.setText("Button");
-        panel2.add(button16);
+        panel1.add(button16);
         button7 = new JButton();
         button7.setText("Button");
-        panel2.add(button7);
+        panel1.add(button7);
         button6 = new JButton();
         button6.setText("Button");
-        panel2.add(button6);
+        panel1.add(button6);
         button5 = new JButton();
         button5.setText("Button");
-        panel2.add(button5);
+        panel1.add(button5);
         button4 = new JButton();
         button4.setText("Button");
-        panel2.add(button4);
+        panel1.add(button4);
         button3 = new JButton();
         button3.setText("Button");
-        panel2.add(button3);
+        panel1.add(button3);
         button2 = new JButton();
         button2.setText("Button");
-        panel2.add(button2);
+        panel1.add(button2);
         button1 = new JButton();
         button1.setText("Button");
-        panel2.add(button1);
+        panel1.add(button1);
         btnIndent.setText("");
-        panel2.add(btnIndent);
+        panel1.add(btnIndent);
         final Spacer spacer2 = new Spacer();
-        panel2.add(spacer2);
+        panel1.add(spacer2);
         button17 = new JButton();
         button17.setText("Button");
         mPanel.add(button17, new GridConstraints(2, 4, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         button18 = new JButton();
         button18.setText("Button");
         mPanel.add(button18, new GridConstraints(3, 4, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        final JPanel panel2 = new JPanel();
+        panel2.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+        mPanel.add(panel2, new GridConstraints(1, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
+        button12 = new JButton();
+        button12.setText("Button");
+        panel2.add(button12);
+        button8 = new JButton();
+        button8.setText("Button");
+        panel2.add(button8);
+        button9 = new JButton();
+        button9.setText("Button");
+        panel2.add(button9);
+        button10 = new JButton();
+        button10.setText("Button");
+        panel2.add(button10);
+        button11 = new JButton();
+        button11.setText("Button");
+        panel2.add(button11);
+        button13 = new JButton();
+        button13.setText("Button");
+        panel2.add(button13);
+        button14 = new JButton();
+        button14.setText("Button");
+        panel2.add(button14);
+        button15 = new JButton();
+        button15.setText("Button");
+        panel2.add(button15);
     }
 
     /**
