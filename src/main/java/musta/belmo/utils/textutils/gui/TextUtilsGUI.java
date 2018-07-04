@@ -3,7 +3,6 @@ package musta.belmo.utils.textutils.gui;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
-import com.sun.istack.internal.Nullable;
 import musta.belmo.utils.textutils.Actions;
 import musta.belmo.utils.textutils.Functions;
 import musta.belmo.utils.textutils.HighlightPosition;
@@ -27,16 +26,12 @@ import java.util.List;
 import java.util.Properties;
 
 public class TextUtilsGUI {
-    private JComboBox<Actions> actionChoice;
     private TextArea inputText;
-    private JButton applyButton;
     private JPanel mPanel;
     private JScrollPane mScrollPane;
     private ActionButton saveAs;
     private JLabel labelL;
     private JLabel labelC;
-    String lastInput;
-
     private JButton btnIndent;
     private JButton button1;
     private JButton button2;
@@ -61,21 +56,16 @@ public class TextUtilsGUI {
 
     private TextUtilsGUI() {
 
-
         $$$setupUI$$$();
         $setupButtons$();
 
-
         TextLineNumber textLineNumber = new TextLineNumber(inputText);
         mScrollPane.setRowHeaderView(textLineNumber);
-
-
         addCaretListenerForCursor();
-
-
         saveAs.setActionToPerform(() -> {
-            JFileChooser jFileChooser = new JFileChooser();
-            if (jFileChooser.showSaveDialog(mPanel) == JFileChooser.APPROVE_OPTION) {
+            FileChooser jFileChooser = new FileChooser();
+            jFileChooser.asSaveDialog().showSaveDialog(mPanel);
+            jFileChooser.doWhenApproved(() -> {
                 File file = jFileChooser.getSelectedFile();
                 try {
                     FileWriter fileWriter = new FileWriter(file);
@@ -84,7 +74,7 @@ public class TextUtilsGUI {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            }
+            });
         });
     }
 
@@ -146,7 +136,6 @@ public class TextUtilsGUI {
                 case DELETE_SYMBOLS:
                     consumer = () -> inputText.setText(Functions.deleteSymbols(inputText.getText()));
                     break;
-
                 case RANDOM_STRING:
                     consumer = () -> {
                         int length = 0;
@@ -182,23 +171,17 @@ public class TextUtilsGUI {
                     break;
                 case ADD_LINE:
                     consumer = () -> {
-                        JFileChooser fileChooser = new JFileChooser();
+                        FileChooser fileChooser = new FileChooser();
+                        fileChooser.asOpenDialog()
+                                .showDialog(null, "Ouvrir");
 
-                        fileChooser.setDialogType(JFileChooser.OPEN_DIALOG);
-
-                        int showDialog = fileChooser.showDialog(null, "Ouvrir");
-                        File chosenFile = null;
-                        if (showDialog == JFileChooser.APPROVE_OPTION) {
-                            chosenFile = fileChooser.getSelectedFile();
-
-                            System.out.println("Approved");
-                        }
-
-                        String textWithAddedLines = Functions.addLinesAt(inputText.getText(), chosenFile);
-                        inputText.setText(textWithAddedLines);
+                        fileChooser.doWhenApproved(() -> {
+                            File chosenFile = fileChooser.getSelectedFile();
+                            String textWithAddedLines = Functions.addLinesAt(inputText.getText(), chosenFile);
+                            inputText.setText(textWithAddedLines);
+                        }).doWhenCanceled(() -> System.out.println("File Chooser Canceled"));
                     };
                     break;
-
             }
         }
 
