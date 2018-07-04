@@ -3,6 +3,7 @@ package musta.belmo.utils.textutils.gui;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
+import com.sun.istack.internal.Nullable;
 import musta.belmo.utils.textutils.Actions;
 import musta.belmo.utils.textutils.Functions;
 import musta.belmo.utils.textutils.HighlightPosition;
@@ -55,6 +56,7 @@ public class TextUtilsGUI {
     private JButton button16;
     private JButton button17;
     private JButton button18;
+    private JButton button19;
 
 
     private TextUtilsGUI() {
@@ -178,6 +180,25 @@ public class TextUtilsGUI {
                 case UNDO:
                     consumer = () -> inputText.undo();
                     break;
+                case ADD_LINE:
+                    consumer = () -> {
+                        JFileChooser fileChooser = new JFileChooser();
+
+                        fileChooser.setDialogType(JFileChooser.OPEN_DIALOG);
+
+                        int showDialog = fileChooser.showDialog(null, "Ouvrir");
+                        File chosenFile = null;
+                        if (showDialog == JFileChooser.APPROVE_OPTION) {
+                            chosenFile = fileChooser.getSelectedFile();
+
+                            System.out.println("Approved");
+                        }
+
+                        String textWithAddedLines = Functions.addLinesAt(inputText.getText(), chosenFile);
+                        inputText.setText(textWithAddedLines);
+                    };
+                    break;
+
             }
         }
 
@@ -208,6 +229,7 @@ public class TextUtilsGUI {
         listButton.add(button16);
         listButton.add(button17);
         listButton.add(button18);
+        listButton.add(button19);
 
         try {
             for (int i = 0; i < values.length; i++) {
@@ -378,6 +400,9 @@ public class TextUtilsGUI {
         button15 = new JButton();
         button15.setText("Button");
         panel2.add(button15);
+        button19 = new JButton();
+        button19.setText("Button");
+        panel2.add(button19);
     }
 
     /**

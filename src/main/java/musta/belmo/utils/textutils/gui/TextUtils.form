@@ -3,7 +3,7 @@
   <grid id="27dc6" binding="mPanel" layout-manager="GridLayoutManager" row-count="7" column-count="7" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="849" height="400"/>
+      <xy x="20" y="20" width="899" height="400"/>
     </constraints>
     <properties/>
     <border type="none"/>
@@ -188,6 +188,12 @@
             </properties>
           </component>
           <component id="89e3a" class="javax.swing.JButton" binding="button15" default-binding="true">
+            <constraints/>
+            <properties>
+              <text value="Button"/>
+            </properties>
+          </component>
+          <component id="fac1a" class="javax.swing.JButton" binding="button19" default-binding="true">
             <constraints/>
             <properties>
               <text value="Button"/>

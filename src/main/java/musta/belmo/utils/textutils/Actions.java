@@ -19,7 +19,8 @@ public enum Actions {
     RANDOM_STRING("Random String"),
     DELETE_LINES("Delete lines"),
     UNDO("undo"),
-    REDO("redo");
+    REDO("redo"),
+    ADD_LINE("Add line at");
 
     private String label;
 

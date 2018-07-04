@@ -2,6 +2,8 @@ package musta.belmo.utils.textutils;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.text.Normalizer;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -157,6 +159,47 @@ public class Functions {
             counter++;
         }
         sc.close();
+        return sb.toString();
+    }
+
+    public static String addLinesAt(String text, File file) {
+        Scanner sc = null;
+        List<String> listLines = new ArrayList<>();
+        Set<TextLine> setOfLines = new TreeSet<>();
+
+        Scanner scInput = new Scanner(text);
+
+        while (scInput.hasNextLine()) {
+            listLines.add(scInput.nextLine());
+        }
+
+        try {
+            sc = new Scanner(file);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+
+        }
+
+
+        int insertedLines = 0;
+        while (sc != null && sc.hasNextLine()) {
+            TextLine textLine = new TextLine(sc.nextInt(), sc.nextLine());
+            setOfLines.add(textLine);
+        }
+        for (TextLine line : setOfLines) {
+            if (listLines.size() > insertedLines + line.getLineNumber() - 1) {
+                listLines.add(insertedLines + line.getLineNumber() - 1, line.getContent());
+            } else {
+                listLines.add(line.getContent());
+            }
+            insertedLines++;
+        }
+
+        StringBuilder sb = new StringBuilder();
+        for (String s : listLines) {
+            sb.append(s);
+            sb.append('\n');
+        }
         return sb.toString();
     }
 }
