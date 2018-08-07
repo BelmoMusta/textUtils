@@ -4,7 +4,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.Tooltip;
+import javafx.scene.layout.HBox;
 import musta.belmo.utils.fx.gui.ActionButton;
+import musta.belmo.utils.fx.gui.ActionButtonGroup;
 import musta.belmo.utils.textutils.commons.Actions;
 import musta.belmo.utils.textutils.commons.Commons;
 import musta.belmo.utils.textutils.commons.Functions;
@@ -13,6 +16,7 @@ import org.kordamp.ikonli.fontawesome.FontAwesome;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.io.IOException;
+import java.util.List;
 
 
 /**
@@ -21,21 +25,24 @@ import java.io.IOException;
 public class FxController {
 
     @FXML
-    Button btnCapitalize;
-
-    @FXML
-    ActionButton btnDeleteEmptyLines;
-
-    @FXML
     TextArea inputText;
+
+    @FXML
+    ActionButtonGroup buttons;
 
     @FXML
     public void initialize() throws IOException {
 
+        List<ActionButton> buttons = this.buttons.getButtons();
+        for (ActionButton button : buttons) {
+            String iconDescription = Commons.readFromProperties(button.getActions().name());
+            button.setGraphic(FontIcon.of(FontAwesome.findByDescription(iconDescription)));
 
+            Tooltip tooltip = new Tooltip();
+            tooltip.setText(button.getActions().getLabel());
+            button.setTooltip(tooltip);
+        }
 
-        String iconDescription = Commons.readFromProperties(btnDeleteEmptyLines.getActions().name());
-        btnDeleteEmptyLines.setGraphic(FontIcon.of(FontAwesome.findByDescription(iconDescription)));
     }
 
     public void editText(ActionEvent actionEvent) {
