@@ -46,7 +46,7 @@
         <!---->
         <dependency>
             <groupId>musta.belmo.utils</groupId>
-            <artifactId>text-utils-common</artifactId>
+            <artifactId>text-utils-commons</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
 

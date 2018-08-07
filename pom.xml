@@ -10,7 +10,7 @@
     <packaging>pom</packaging>
     <modules>
     <module>text-utils-fx</module>
-    <module>text-utils-common</module>
+    <module>text-utils-commons</module>
     <module>text-utils-gui</module>
     </modules>
     <build>

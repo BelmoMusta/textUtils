@@ -3,10 +3,7 @@ package musta.belmo.utils.textutils.gui;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
-import musta.belmo.utils.textutils.commons.Actions;
-import musta.belmo.utils.textutils.commons.Functions;
-import musta.belmo.utils.textutils.commons.HighlightPosition;
-import musta.belmo.utils.textutils.commons.VoidConsumer;
+import musta.belmo.utils.textutils.commons.*;
 import org.apache.commons.lang3.StringUtils;
 import org.kordamp.ikonli.Ikon;
 import org.kordamp.ikonli.fontawesome.FontAwesome;
@@ -20,13 +17,11 @@ import java.awt.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 public class TextUtilsGUI {
-    private musta.belmo.utils.textutils.gui.TextArea inputText;
+    private TextArea inputText;
     private JPanel mPanel;
     private JScrollPane mScrollPane;
     private ActionButton saveAs;
@@ -217,7 +212,7 @@ public class TextUtilsGUI {
         try {
             for (int i = 0; i < values.length; i++) {
 
-                Ikon byDescription = FontAwesome.findByDescription(readFromProperties(values[i].name()));
+                Ikon byDescription = FontAwesome.findByDescription(Commons.readFromProperties(values[i].name()));
 
                 FontIcon fontIcon = FontIcon.of(byDescription);
                 JButton jButton = listButton.get(i);
@@ -230,14 +225,6 @@ public class TextUtilsGUI {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public static String readFromProperties(String key) throws IOException {
-        InputStream resourceAsStream = TextUtilsGUI.class.getClassLoader().getResource("application.properties").openStream();
-
-        Properties properties = new Properties();
-        properties.load(resourceAsStream);
-        return properties.getProperty(key);
     }
 
     public static void main(String[] args) throws Exception {
@@ -260,7 +247,7 @@ public class TextUtilsGUI {
     }
 
     private void createUIComponents() {
-        inputText = new musta.belmo.utils.textutils.gui.TextArea();
+        inputText = new TextArea();
         btnIndent = new JButton();
     }
 
@@ -303,7 +290,7 @@ public class TextUtilsGUI {
         mPanel.setLayout(new GridLayoutManager(7, 7, new Insets(0, 0, 0, 0), -1, -1));
         mScrollPane = new JScrollPane();
         mPanel.add(mScrollPane, new GridConstraints(5, 1, 1, 6, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
-        inputText = new musta.belmo.utils.textutils.gui.TextArea();
+        inputText = new TextArea();
         inputText.setBackground(new Color(-1317));
         inputText.setForeground(new Color(-16777216));
         inputText.setLineWrap(true);
