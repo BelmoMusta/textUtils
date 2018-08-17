@@ -1,5 +1,6 @@
 package musta.belmo.utils.fx.controller;
 
+import com.sun.javafx.scene.control.behavior.TextAreaBehavior;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
@@ -29,6 +30,9 @@ public class FxController {
 
     @FXML
     public void initialize() throws IOException {
+
+        TextAreaBehavior textAreaBehavior = new TextAreaBehavior(inputText);
+        textAreaBehavior.dispose();
         VBox[] vBoxes = new VBox[(Actions.values().length / 4) + 1];
         for (int i = 0; i < vBoxes.length; i++) {
             vBoxes[i] = new VBox();
