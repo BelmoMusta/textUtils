@@ -1,22 +1,20 @@
 package musta.belmo.utils.fx.controller;
 
+import com.sun.javafx.scene.control.behavior.TextAreaBehavior;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import musta.belmo.utils.fx.gui.ActionButton;
-import musta.belmo.utils.fx.gui.ActionButtonGroup;
 import musta.belmo.utils.textutils.commons.Actions;
 import musta.belmo.utils.textutils.commons.Commons;
 import musta.belmo.utils.textutils.commons.Functions;
-import org.kordamp.ikonli.Ikon;
 import org.kordamp.ikonli.fontawesome.FontAwesome;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.io.IOException;
-import java.util.List;
 
 
 /**
@@ -28,20 +26,40 @@ public class FxController {
     TextArea inputText;
 
     @FXML
-    ActionButtonGroup buttons;
+    HBox buttons;
 
     @FXML
     public void initialize() throws IOException {
 
-        List<ActionButton> buttons = this.buttons.getButtons();
-        for (ActionButton button : buttons) {
-            String iconDescription = Commons.readFromProperties(button.getActions().name());
-            button.setGraphic(FontIcon.of(FontAwesome.findByDescription(iconDescription)));
-
-            Tooltip tooltip = new Tooltip();
-            tooltip.setText(button.getActions().getLabel());
-            button.setTooltip(tooltip);
+        TextAreaBehavior textAreaBehavior = new TextAreaBehavior(inputText);
+        textAreaBehavior.dispose();
+        VBox[] vBoxes = new VBox[(Actions.values().length / 4) + 1];
+        for (int i = 0; i < vBoxes.length; i++) {
+            vBoxes[i] = new VBox();
+            buttons.getChildren().addAll(vBoxes[i]);
         }
+
+        int y = 0;
+        int idx = 0;
+        for (Actions actions : Actions.values()) {
+            ActionButton button = new ActionButton();
+            String iconDescription = Commons.readFromProperties(actions.name());
+            button.setGraphic(FontIcon.of(FontAwesome.findByDescription(iconDescription)));
+            button.setActions(actions);
+            Tooltip tooltip = new Tooltip();
+            tooltip.setText(actions.getLabel());
+            button.setTooltip(tooltip);
+            button.setOnAction(this::editText);
+
+            if (y != 0 && y % 4 == 0) {
+                idx++;
+            }
+            vBoxes[idx].getChildren().add(button);
+
+            y++;
+
+        }
+
 
     }
 
