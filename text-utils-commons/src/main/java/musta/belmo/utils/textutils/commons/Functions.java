@@ -14,7 +14,7 @@ public class Functions {
 
     public static final boolean UPPER_CASE = true;
     public static final boolean LOWER_CASE = false;
-    private static final String CAMELCASE_REGEX = "(?<!(^|[A-Z]))(?=[A-Z])|(?<!^)(?=[A-Z][a-z])";
+    private static final String CAMELCASE_REGEX ="(?<!(^|[A-Z\\d]))((?=[A-Z\\d])|[A-Z](?=[\\d]))|(?<!^)(?=[A-Z\\d][a-z])";
     private static final String SYMBOLS_REGEX = "[^\\p{L}\\p{Nd} ]+";
 
 
