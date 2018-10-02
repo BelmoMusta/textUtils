@@ -27,7 +27,7 @@ public class FXWindow extends Application {
 
         URL resourceAsStream = FXWindow.class.getClassLoader().getResource("window-fx.fxml");
         Parent root = FXMLLoader.load(resourceAsStream);
-        primaryStage.setTitle("TextUtils");
+        primaryStage.setTitle("Text-Utils");
         primaryStage.setScene(new Scene(root, 800, 500));
         primaryStage.show();
         primaryStage.show();
