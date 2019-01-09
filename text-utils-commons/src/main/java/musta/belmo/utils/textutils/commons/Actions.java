@@ -20,7 +20,8 @@ public enum Actions {
     DELETE_LINES("Delete lines"),
     UNDO("undo"),
     REDO("redo"),
-    ADD_LINE("Add line at");
+    ADD_LINE("Add line at"),
+    FORMAT_XML("Add line at");
 
     private String label;
 

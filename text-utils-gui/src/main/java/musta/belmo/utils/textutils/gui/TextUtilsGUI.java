@@ -47,6 +47,7 @@ public class TextUtilsGUI {
     private JButton button17;
     private JButton button18;
     private JButton button19;
+    private JButton button20;
 
 
     private TextUtilsGUI() {
@@ -208,6 +209,7 @@ public class TextUtilsGUI {
         listButton.add(button17);
         listButton.add(button18);
         listButton.add(button19);
+        listButton.add(button20);
 
         try {
             for (int i = 0; i < values.length; i++) {
@@ -287,9 +289,9 @@ public class TextUtilsGUI {
     private void $$$setupUI$$$() {
         createUIComponents();
         mPanel = new JPanel();
-        mPanel.setLayout(new GridLayoutManager(7, 7, new Insets(0, 0, 0, 0), -1, -1));
+        mPanel.setLayout(new GridLayoutManager(7, 8, new Insets(0, 0, 0, 0), -1, -1));
         mScrollPane = new JScrollPane();
-        mPanel.add(mScrollPane, new GridConstraints(5, 1, 1, 6, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+        mPanel.add(mScrollPane, new GridConstraints(5, 1, 1, 7, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         inputText = new TextArea();
         inputText.setBackground(new Color(-1317));
         inputText.setForeground(new Color(-16777216));
@@ -297,7 +299,7 @@ public class TextUtilsGUI {
         mScrollPane.setViewportView(inputText);
         saveAs = new ActionButton();
         saveAs.setText("Save as ...");
-        mPanel.add(saveAs, new GridConstraints(6, 6, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        mPanel.add(saveAs, new GridConstraints(6, 7, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         labelL = new JLabel();
         labelL.setText("L:");
         mPanel.add(labelL, new GridConstraints(6, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 1, false));
@@ -308,7 +310,7 @@ public class TextUtilsGUI {
         mPanel.add(spacer1, new GridConstraints(2, 0, 5, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_VERTICAL, 1, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(1, 1), null, 0, false));
         final JPanel panel1 = new JPanel();
         panel1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-        mPanel.add(panel1, new GridConstraints(0, 0, 1, 5, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
+        mPanel.add(panel1, new GridConstraints(0, 0, 1, 6, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
         button16 = new JButton();
         button16.setText("Button");
         panel1.add(button16);
@@ -339,10 +341,10 @@ public class TextUtilsGUI {
         panel1.add(spacer2);
         button17 = new JButton();
         button17.setText("Button");
-        mPanel.add(button17, new GridConstraints(2, 4, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        mPanel.add(button17, new GridConstraints(2, 5, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         button18 = new JButton();
         button18.setText("Button");
-        mPanel.add(button18, new GridConstraints(3, 4, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        mPanel.add(button18, new GridConstraints(3, 5, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JPanel panel2 = new JPanel();
         panel2.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
         mPanel.add(panel2, new GridConstraints(1, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
@@ -373,6 +375,9 @@ public class TextUtilsGUI {
         button19 = new JButton();
         button19.setText("Button");
         panel2.add(button19);
+        button20 = new JButton();
+        button20.setText("Button");
+        mPanel.add(button20, new GridConstraints(1, 3, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     }
 
     /**
