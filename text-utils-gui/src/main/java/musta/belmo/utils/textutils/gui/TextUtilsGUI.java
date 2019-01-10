@@ -48,6 +48,7 @@ public class TextUtilsGUI {
     private JButton button18;
     private JButton button19;
     private JButton button20;
+    private JButton button21;
 
 
     private TextUtilsGUI() {
@@ -178,6 +179,13 @@ public class TextUtilsGUI {
                         }).doWhenCanceled(() -> System.out.println("File Chooser Canceled"));
                     };
                     break;
+                case FORMAT_XML:
+                    consumer = () -> {
+                        String formattedXML  = Functions.formatXML(inputText.getText());
+                        inputText.setText(formattedXML);
+                        System.out.println("LOL");
+                    };
+                    break;
             }
         }
 
@@ -210,6 +218,7 @@ public class TextUtilsGUI {
         listButton.add(button18);
         listButton.add(button19);
         listButton.add(button20);
+        listButton.add(button21);
 
         try {
             for (int i = 0; i < values.length; i++) {
@@ -378,6 +387,9 @@ public class TextUtilsGUI {
         button20 = new JButton();
         button20.setText("Button");
         mPanel.add(button20, new GridConstraints(1, 3, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        button21 = new JButton();
+        button21.setText("Button");
+        mPanel.add(button21, new GridConstraints(1, 4, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     }
 
     /**
