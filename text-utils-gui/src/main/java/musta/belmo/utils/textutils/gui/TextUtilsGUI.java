@@ -55,7 +55,7 @@ public class TextUtilsGUI {
 
         $$$setupUI$$$();
         $setupButtons$();
-
+        inputText.getSelectedText();
         TextLineNumber textLineNumber = new TextLineNumber(inputText);
         mScrollPane.setRowHeaderView(textLineNumber);
         addCaretListenerForCursor();
