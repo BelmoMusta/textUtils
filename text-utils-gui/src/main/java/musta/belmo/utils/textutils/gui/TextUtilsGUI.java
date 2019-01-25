@@ -99,6 +99,7 @@ public class TextUtilsGUI {
                         String inputDialog = JOptionPane.showInputDialog(this.mPanel, "Enter REGEX pattern to highlight:", "");
                         List<HighlightPosition> highlights = Functions.getHighlights(inputText.getText(),
                                 inputDialog);
+                        JOptionPane.showMessageDialog(TextUtilsGUI.this.mPanel, String.format("%d occurrences of %s", highlights.size(), inputDialog), "occurernces", JOptionPane.INFORMATION_MESSAGE);
                         inputText.addHighlisghts(highlights);
                     };
                     break;
@@ -181,7 +182,7 @@ public class TextUtilsGUI {
                     break;
                 case FORMAT_XML:
                     consumer = () -> {
-                        String formattedXML  = Functions.formatXML(inputText.getText());
+                        String formattedXML = Functions.formatXML(inputText.getText());
                         inputText.setText(formattedXML);
                         System.out.println("LOL");
                     };
