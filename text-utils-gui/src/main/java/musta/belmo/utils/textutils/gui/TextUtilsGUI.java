@@ -126,7 +126,7 @@ public class TextUtilsGUI {
                     consumer = () -> inputText.setText(Functions.indent(inputText.getText()));
                     break;
                 case UNCAMELCASE:
-                    consumer = () -> inputText.setText(Functions.uncamelcase(inputText.getText()));
+                    consumer = () -> inputText.setText(Functions.splitCamelCase(inputText.getText()));
                     break;
                 case REPLACE_ACCENTED:
                     consumer = () -> inputText.setText(Functions.replaceAccentedLetters(inputText.getText()));
@@ -175,7 +175,7 @@ public class TextUtilsGUI {
 
                         fileChooser.doWhenApproved(() -> {
                             File chosenFile = fileChooser.getSelectedFile();
-                            String textWithAddedLines = Functions.addLinesAt(inputText.getText(), chosenFile);
+                            String textWithAddedLines = Functions.addLinesAtPositions(inputText.getText(), chosenFile);
                             inputText.setText(textWithAddedLines);
                         }).doWhenCanceled(() -> System.out.println("File Chooser Canceled"));
                     };

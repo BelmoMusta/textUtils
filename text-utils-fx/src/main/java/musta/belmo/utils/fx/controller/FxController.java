@@ -113,7 +113,7 @@ public class FxController {
                     inputText.setText(Functions.indent(inputText.getText()));
                     break;
                 case UNCAMELCASE:
-                    inputText.setText(Functions.uncamelcase(inputText.getText()));
+                    inputText.setText(Functions.splitCamelCase(inputText.getText()));
                     break;
                 case REPLACE_ACCENTED:
                     inputText.setText(Functions.replaceAccentedLetters(inputText.getText()));

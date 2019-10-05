@@ -78,7 +78,7 @@ public class FunctionsTest {
     public void replaceAccentedLetters() {
         String expected = "aaaeeeeiiioouuAAAEEEE";
         String result = Functions.replaceAccentedLetters("àâäêéëèîïìôòûùÀÂÄÉÈËÊ");
-      //  Assert.assertEquals(expected, result);
+        //  Assert.assertEquals(expected, result);
     }
 
     @Test
@@ -90,8 +90,44 @@ public class FunctionsTest {
 
     @Test
     public void randomString() {
-        String expected = "abcdefgh";
         String result = Functions.randomString(10);
+        Assert.assertEquals(10, result.length());
+    }
+
+    @Test
+    public void testBase64EncodingAndDecoding() {
+        String encode = Functions.encode64("abc");
+        String result = Functions.decode64(encode);
+        Assert.assertEquals("abc", result);
+    }
+
+    @Test
+    public void testIndent() {
+        String result = Functions.indent("abc");
+        Assert.assertEquals("\tabc\n", result);
+    }
+
+    @Test
+    public void testUncamelcase() {
+        String result = Functions.deleteLines("a\nb\nc\nd\n",1,3);
+        Assert.assertEquals("b\nd\n", result);
+    }
+    @Test
+    public void testAddLines() {
+        String result = Functions.addLinesAtPositions("this is line 1 \n" +
+                "this is line 2\n" +
+                "this is line 3\n" +
+                "this is line 4\n" +
+                "this is line 5\n" +
+                "this is line 6",
+                "2 add this line at position 2\n" +
+                "8 add this line at position 8\n" +
+                "0 add this line at position 0\n" +
+                "-1 add this line at position -1\n" +
+                "7 add this line at position 7\n" +
+                "5 add this line at position 5");
+
         System.out.println(result);
+        //Assert.assertEquals("b\nd\n", result);
     }
 }

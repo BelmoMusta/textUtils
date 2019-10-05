@@ -1,17 +1,8 @@
 package musta.belmo.utils.textutils.commons;
 
-import com.sun.org.apache.xml.internal.serialize.OutputFormat;
-import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
 import org.apache.commons.lang3.StringUtils;
-import org.w3c.dom.Document;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.*;
-import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import java.io.*;
@@ -19,6 +10,7 @@ import java.text.Normalizer;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Functions {
@@ -66,7 +58,9 @@ public class Functions {
     }
 
     public static String delete(String old, String regex) {
-        return old.replaceAll(regex, "");
+        return Optional.ofNullable(old)
+                .map(str -> str.replaceAll(regex, ""))
+                .orElse(null);
     }
 
     public static List<HighlightPosition> getHighlights(String inputText, String regex) {
@@ -91,7 +85,7 @@ public class Functions {
     }
 
     public static String indent(String input) {
-        StringBuilder sb = new StringBuilder();
+        final StringBuilder sb = new StringBuilder();
         Scanner scanner = new Scanner(input);
         while (scanner.hasNextLine()) {
 
@@ -103,7 +97,7 @@ public class Functions {
 
     }
 
-    public static String uncamelcase(String input) {
+    public static String splitCamelCase(String input) {
         StringBuilder sb = new StringBuilder();
         Stream.of(input.split(CAMELCASE_REGEX)).forEach(word -> sb.append(word).append(' '));
         return sb.toString().trim();
@@ -124,14 +118,10 @@ public class Functions {
         return randomString(length, true, true, true);
     }
 
-    public static String randomUpercaseString(int length) {
-        return randomString(length, false, false, true);
-    }
-
-    public static String randomString(int length,
-                                      boolean withNumeric,
-                                      boolean withLowerCase,
-                                      boolean withUpperCase) {
+    private static String randomString(int length,
+                                       boolean withNumeric,
+                                       boolean withLowerCase,
+                                       boolean withUpperCase) {
         StringBuilder sb = new StringBuilder();
 
         while (sb.length() < length) {
@@ -173,45 +163,100 @@ public class Functions {
         return sb.toString();
     }
 
-    public static String addLinesAt(String text, File file) {
-        Scanner sc = null;
-        List<String> listLines = new ArrayList<>();
-        Set<TextLine> setOfLines = new TreeSet<>();
+    public static String addLinesAtPositions(String text, String string) {
+        return addLinesAtPositions(text, convertToTextLines(string));
+    }
 
-        Scanner scInput = new Scanner(text);
+    public static String addLinesAtPositions(String text, File file) {
+        return addLinesAtPositions(text, convertToTextLines(file));
+    }
 
-        while (scInput.hasNextLine()) {
-            listLines.add(scInput.nextLine());
-        }
+    private static String addLinesAtPositions(String text, Map<Integer, String> linesToAdd) {
+        return addLinesAtPositions(text, convertToTextLine(linesToAdd));
+    }
 
-        try {
-            sc = new Scanner(file);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+    private static String addLinesAtPositions(String text, Set<TextLine> setOfLinesToAdd) {
+        final List<String> listLines = convertStringToListOfLines(text);
+        final List<String> mergedText = addLinesToPositions(setOfLinesToAdd, listLines);
+        return convertLinesToString(mergedText);
+    }
 
-        }
-
-
-        int insertedLines = 0;
-        while (sc != null && sc.hasNextLine()) {
-            TextLine textLine = new TextLine(sc.nextInt(), sc.nextLine());
-            setOfLines.add(textLine);
-        }
-        for (TextLine line : setOfLines) {
-            if (listLines.size() > insertedLines + line.getLineNumber() - 1) {
-                listLines.add(insertedLines + line.getLineNumber() - 1, line.getContent());
-            } else {
-                listLines.add(line.getContent());
-            }
-            insertedLines++;
-        }
-
-        StringBuilder sb = new StringBuilder();
+    private static String convertLinesToString(List<String> listLines) {
+        final StringBuilder sb = new StringBuilder();
         for (String s : listLines) {
             sb.append(s);
             sb.append('\n');
         }
         return sb.toString();
+    }
+
+    private static List<String> addLinesToPositions(Set<TextLine> setOfLinesToAdd, List<String> listLines) {
+        final List<String> result = new ArrayList<>(listLines);
+        int insertedLines = 0;
+        Set<TextLine> textLinesWithPositivePositions = setOfLinesToAdd.stream()
+                .filter(textLine -> textLine.getLineNumber() > 0)
+                .collect(Collectors.toSet());
+        for (TextLine line : textLinesWithPositivePositions) {
+            int position = insertedLines + line.getLineNumber() - 1;
+            if (result.size() > position) {
+                result.add(position, line.getContent());
+            } else {
+                result.add(line.getContent());
+            }
+            insertedLines++;
+        }
+        List<String> negativeLines = addNegativeLinesAtFirst(setOfLinesToAdd);
+        negativeLines.addAll(result);
+        return negativeLines;
+    }
+
+    private static List<String> addNegativeLinesAtFirst(Set<TextLine> listLines) {
+        return listLines.stream().filter((textLine -> textLine.getLineNumber() <= 0))
+                .map(TextLine::getContent)
+                .collect(Collectors.toList());
+
+    }
+
+    private static List<String> convertStringToListOfLines(String text) {
+        final List<String> listLines = new ArrayList<>();
+        final Scanner scInput = new Scanner(text);
+        while (scInput.hasNextLine()) {
+            listLines.add(scInput.nextLine());
+        }
+        return listLines;
+    }
+
+    private static Set<TextLine> convertToTextLine(Map<Integer, String> linesToAdd) {
+        return linesToAdd.entrySet().stream()
+                .map(entry -> new TextLine(entry.getKey(), entry.getValue()))
+                .collect(Collectors.toSet());
+    }
+
+    private static Set<TextLine> convertToTextLines(File linesToAdd) {
+        FileReader reader = null;
+        try {
+            reader = new FileReader(linesToAdd);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return convertReadableTextToTextLines(reader);
+    }
+
+    private static Set<TextLine> convertToTextLines(String linesToAdd) {
+        final StringReader reader = new StringReader(linesToAdd);
+        return convertReadableTextToTextLines(reader);
+    }
+
+    private static Set<TextLine> convertReadableTextToTextLines(Readable readable) {
+        final Set<TextLine> setOfLines = new TreeSet<>();
+        if (Objects.nonNull(readable)) {
+            final Scanner sc = new Scanner(readable);
+            while (sc.hasNextLine()) {
+                TextLine textLine = new TextLine(sc.nextInt(), trimWitheSpacesAtStart(sc.nextLine()));
+                setOfLines.add(textLine);
+            }
+        }
+        return setOfLines;
     }
 
     public static String formatXML(String text) {
@@ -225,28 +270,19 @@ public class Functions {
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
             transformer.transform(xmlInput, xmlOutput);
             return xmlOutput.getWriter().toString();
-        } catch (Exception e) {
+        } catch (TransformerException e) {
             throw new RuntimeException(e); // simple exception handling, please review it
         }
 
     }
-    public static String removeCommentsFromXML(String text) {
-        return text.replaceAll("\\s*<!--((?!-->)[\\s\\S])*-->","");
+
+    private static String trimWitheSpacesAtStart(String input) {
+        return delete(input, "^[\\t ]");
     }
 
-    private static  Document parseXmlFile(String in) {
-        try {
-            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-            DocumentBuilder db = dbf.newDocumentBuilder();
-            InputSource is = new InputSource(new StringReader(in));
-            return db.parse(is);
-        } catch (ParserConfigurationException e) {
-            throw new RuntimeException(e);
-        } catch (SAXException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    private static String removeCommentsFromXML(String text) {
+        return text.replaceAll("<!--.*-->", "");
     }
+
 
 }
