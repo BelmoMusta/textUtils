@@ -3,7 +3,9 @@ package musta.belmo.utils.textutils.commons;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class FunctionsTest {
     @Test
@@ -15,18 +17,31 @@ public class FunctionsTest {
     }
 
     @Test
-    public void changeCase() {
+    public void changeCaseUpper() {
+        String text = "aaa bbb ccc";
         String expected = "AAA BBB CCC";
-        String result = Functions.changeCase("aaa bbb ccc", Functions.UPPER_CASE);
+        String result = Functions.changeCase(text, Functions.UPPER_CASE);
         Assert.assertEquals(expected, result);
-        result = Functions.changeCase(expected, Functions.LOWER_CASE);
-        Assert.assertEquals("aaa bbb ccc", result);
+
+    }
+    @Test
+    public void changeCaseLower() {
+        String text = "AAA BBB CCC ÉÉÀ";
+        String expected = "aaa bbb ccc ééà";
+        String result = Functions.changeCase(text, Functions.LOWER_CASE);
+        Assert.assertEquals(expected, result);
     }
 
     @Test
     public void capitalize() {
         String expected = "Aaa bbb ccc";
         String result = Functions.capitalize("aaa bbb ccc");
+        Assert.assertEquals(expected, result);
+    }
+    @Test
+    public void capitalizeOneLetter() {
+        String expected = "A";
+        String result = Functions.capitalize("a");
         Assert.assertEquals(expected, result);
     }
 
@@ -108,6 +123,12 @@ public class FunctionsTest {
     }
 
     @Test
+    public void testSplitCamelcase() {
+        String result = Functions.splitCamelCase("aBcdeFghijKlmNo");
+        Assert.assertEquals("a bcde fghij klm no", result);
+    }
+
+    @Test
     public void testUncamelcase() {
         String result = Functions.deleteLines("a\nb\nc\nd\n",1,3);
         Assert.assertEquals("b\nd\n", result);
@@ -129,5 +150,26 @@ public class FunctionsTest {
 
         System.out.println(result);
         //Assert.assertEquals("b\nd\n", result);
+    }
+    @Test
+    public void testAddLinesUsingMap() {
+        Map<Integer,String> map = new LinkedHashMap<>();
+        map.put(1,"line to be added in position 1");
+        String result = Functions.addLinesAtPositions("this is line 1 \n" +
+                "this is line 2\n" +
+                "this is line 3\n" +
+                "this is line 4\n" +
+                "this is line 5\n" +
+                "this is line 6",
+                map);
+
+
+         Assert.assertEquals("line to be added in position 1\n" +
+                 "this is line 1 \n" +
+                 "this is line 2\n" +
+                 "this is line 3\n" +
+                 "this is line 4\n" +
+                 "this is line 5\n" +
+                 "this is line 6", result);
     }
 }

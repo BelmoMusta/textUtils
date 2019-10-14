@@ -2,6 +2,7 @@ package musta.belmo.utils.textutils.commons;
 
 import org.apache.commons.lang3.StringUtils;
 
+import javax.swing.text.html.Option;
 import javax.xml.transform.*;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
@@ -28,13 +29,26 @@ public class Functions {
     }
 
     public static String changeCase(String text, boolean upper) {
-        if (upper)
-            return StringUtils.upperCase(text);
-        return StringUtils.lowerCase(text);
+        return Optional.ofNullable(text)
+                .filter(str -> upper)
+                .map(String::toUpperCase)
+                .orElseGet(() ->
+                        Optional.ofNullable(text)
+                                .map(String::toLowerCase)
+                                .orElse(null));
+
     }
 
     public static String capitalize(String text) {
-        return StringUtils.capitalize(text);
+        return Optional.ofNullable(text)
+                .map(string -> Character.toUpperCase(string.charAt(0)) + string.substring(1))
+                .orElse(null);
+    }
+
+    public static String uncapitalize(String text) {
+        return Optional.ofNullable(text)
+                .map(string -> Character.toLowerCase(string.charAt(0)) + string.substring(1))
+                .orElse(null);
     }
 
     public static String deleteEmptyLines(String inputText) {
@@ -98,9 +112,9 @@ public class Functions {
     }
 
     public static String splitCamelCase(String input) {
-        StringBuilder sb = new StringBuilder();
-        Stream.of(input.split(CAMELCASE_REGEX)).forEach(word -> sb.append(word).append(' '));
-        return sb.toString().trim();
+        return Stream.of(input.split(CAMELCASE_REGEX))
+                .map(Functions::uncapitalize)
+                .collect(Collectors.joining(" "));
     }
 
     public static String replaceAccentedLetters(String input) {
@@ -171,7 +185,7 @@ public class Functions {
         return addLinesAtPositions(text, convertToTextLines(file));
     }
 
-    private static String addLinesAtPositions(String text, Map<Integer, String> linesToAdd) {
+    public static String addLinesAtPositions(String text, Map<Integer, String> linesToAdd) {
         return addLinesAtPositions(text, convertToTextLine(linesToAdd));
     }
 
@@ -182,12 +196,8 @@ public class Functions {
     }
 
     private static String convertLinesToString(List<String> listLines) {
-        final StringBuilder sb = new StringBuilder();
-        for (String s : listLines) {
-            sb.append(s);
-            sb.append('\n');
-        }
-        return sb.toString();
+        return listLines.stream()
+                .collect(Collectors.joining("\n"));
     }
 
     private static List<String> addLinesToPositions(Set<TextLine> setOfLinesToAdd, List<String> listLines) {
@@ -218,12 +228,12 @@ public class Functions {
     }
 
     private static List<String> convertStringToListOfLines(String text) {
-        final List<String> listLines = new ArrayList<>();
-        final Scanner scInput = new Scanner(text);
-        while (scInput.hasNextLine()) {
-            listLines.add(scInput.nextLine());
-        }
-        return listLines;
+        return Optional.ofNullable(text)
+                .map(txt -> txt.split("\\n"))
+                .map(Arrays::asList)
+                .orElse(Arrays.asList())
+                .stream()
+                .collect(Collectors.toList());
     }
 
     private static Set<TextLine> convertToTextLine(Map<Integer, String> linesToAdd) {
