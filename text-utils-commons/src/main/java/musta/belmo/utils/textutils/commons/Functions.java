@@ -1,12 +1,17 @@
 package musta.belmo.utils.textutils.commons;
 
 import org.apache.commons.lang3.StringUtils;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.json.JSONTokener;
 
 import javax.swing.text.html.Option;
 import javax.xml.transform.*;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.Normalizer;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -288,6 +293,20 @@ public class Functions {
 
     private static String trimWitheSpacesAtStart(String input) {
         return delete(input, "^[\\t ]");
+    }
+
+    public static String formatJSON(String input) {
+        final String json;
+        Object json_ = new JSONTokener(input).nextValue();
+        if (json_ instanceof JSONObject) {
+            json = new LinkedJSONObject(input).toString(2);
+        } else if (json_ instanceof JSONArray) {
+            json = new JSONArray(input).toString(2);
+        } else {
+            json = input;
+        }
+
+        return json;
     }
 
     private static String removeCommentsFromXML(String text) {

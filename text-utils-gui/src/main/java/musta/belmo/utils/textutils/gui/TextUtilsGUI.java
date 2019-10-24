@@ -49,6 +49,7 @@ public class TextUtilsGUI {
     private JButton button19;
     private JButton button20;
     private JButton button21;
+    private JButton button22;
 
 
     private TextUtilsGUI() {
@@ -187,6 +188,12 @@ public class TextUtilsGUI {
                         System.out.println("LOL");
                     };
                     break;
+                case FORMAT_JSON:
+                    consumer = () -> {
+                        String s = Functions.formatJSON(inputText.getText());
+                        inputText.setText(s);
+                    };
+                    break;
             }
         }
 
@@ -232,7 +239,9 @@ public class TextUtilsGUI {
                 jButton.setToolTipText(values[i].getLabel());
                 jButton.setText("");
                 final int y = i;
-                jButton.addActionListener(e -> getActionFrom(values[y]).perform());
+                jButton.addActionListener(e ->
+                        getActionFrom(values[y]).perform()
+                );
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -391,6 +400,9 @@ public class TextUtilsGUI {
         button21 = new JButton();
         button21.setText("Button");
         mPanel.add(button21, new GridConstraints(1, 4, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        button22 = new JButton();
+        button22.setText("Button");
+        mPanel.add(button22, new GridConstraints(2, 4, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     }
 
     /**
@@ -399,4 +411,5 @@ public class TextUtilsGUI {
     public JComponent $$$getRootComponent$$$() {
         return mPanel;
     }
+
 }

@@ -21,6 +21,7 @@ public enum Actions {
     UNDO("undo"),
     REDO("redo"),
     ADD_LINE("Add line at"),
+    FORMAT_JSON("Format JSON"),
     FORMAT_XML("Add line at");
 
     private String label;
