@@ -1,5 +1,6 @@
 package musta.belmo.utils.textutils.commons;
 
+import musta.belmo.utils.textutils.commons.text.line.TextLinesUtils;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -12,7 +13,7 @@ public class FunctionsTest {
     public void capitalizeEachWord() {
 
         String expected = "Aaa Bbb Ccc";
-        String result = Functions.capitalizeEachWord("aaa bbb ccc");
+        String result = StringUtilities.capitalizeEachWord("aaa bbb ccc");
         Assert.assertEquals(expected, result);
     }
 
@@ -20,7 +21,7 @@ public class FunctionsTest {
     public void changeCaseUpper() {
         String text = "aaa bbb ccc";
         String expected = "AAA BBB CCC";
-        String result = Functions.changeCase(text, Functions.UPPER_CASE);
+        String result = StringUtilities.changeCase(text, StringUtilities.UPPER_CASE);
         Assert.assertEquals(expected, result);
 
     }
@@ -28,48 +29,48 @@ public class FunctionsTest {
     public void changeCaseLower() {
         String text = "AAA BBB CCC ÉÉÀ";
         String expected = "aaa bbb ccc ééà";
-        String result = Functions.changeCase(text, Functions.LOWER_CASE);
+        String result = StringUtilities.changeCase(text, StringUtilities.LOWER_CASE);
         Assert.assertEquals(expected, result);
     }
 
     @Test
     public void capitalize() {
         String expected = "Aaa bbb ccc";
-        String result = Functions.capitalize("aaa bbb ccc");
+        String result = StringUtilities.capitalize("aaa bbb ccc");
         Assert.assertEquals(expected, result);
     }
     @Test
     public void capitalizeOneLetter() {
         String expected = "A";
-        String result = Functions.capitalize("a");
+        String result = StringUtilities.capitalize("a");
         Assert.assertEquals(expected, result);
     }
 
     @Test
     public void deleteEmptyLines() {
         String expected = "aaa \nbbb ccc";
-        String result = Functions.deleteEmptyLines("aaa \n\n\n\n\nbbb ccc");
+        String result = StringUtilities.deleteEmptyLines("aaa \n\n\n\n\nbbb ccc");
         Assert.assertEquals(expected, result);
     }
 
     @Test
     public void camelCase() {
         String expected = "AaaBbbCcc";
-        String result = Functions.camelCase("aaa bbb ccc");
+        String result = StringUtilities.camelCase("aaa bbb ccc");
         Assert.assertEquals(expected, result);
     }
 
     @Test
     public void reduceWhiteSpaces() {
         String expected = "aaa\n\tbbb ccc";
-        String result = Functions.reduceWhiteSpaces("aaa\n\n\n\n\n\t\t\tbbb              ccc");
+        String result = StringUtilities.reduceWhiteSpaces("aaa\n\n\n\n\n\t\t\tbbb              ccc");
         Assert.assertEquals(expected, result);
     }
 
     @Test
     public void delete() {
         String expected = "bbbccc";
-        String result = Functions.delete("aaabbbccc", "aaa");
+        String result = TextLinesUtils.delete("aaabbbccc", "aaa");
         Assert.assertEquals(expected, result);
     }
 
@@ -77,7 +78,7 @@ public class FunctionsTest {
     public void getHighlights() {
 
         List<HighlightPosition> highlights
-                = Functions.getHighlights("aaabbbcccaannaa", "aa");
+                = StringUtilities.getHighlights("aaabbbcccaannaa", "aa");
 
         HighlightPosition highlightPosition0 = new HighlightPosition(0, 2);
         HighlightPosition highlightPosition1 = new HighlightPosition(9, 11);
@@ -92,50 +93,50 @@ public class FunctionsTest {
     @Test
     public void replaceAccentedLetters() {
         String expected = "aaaeeeeiiioouuAAAEEEE";
-        String result = Functions.replaceAccentedLetters("àâäêéëèîïìôòûùÀÂÄÉÈËÊ");
+        String result = StringUtilities.replaceAccentedLetters("àâäêéëèîïìôòûùÀÂÄÉÈËÊ");
         //  Assert.assertEquals(expected, result);
     }
 
     @Test
     public void deleteSymbols() {
         String expected = "abcdefgh";
-        String result = Functions.deleteSymbols("abc-de(f+g_h");
+        String result = StringUtilities.deleteSymbols("abc-de(f+g_h");
         Assert.assertEquals(expected, result);
     }
 
     @Test
     public void randomString() {
-        String result = Functions.randomString(10);
+        String result = StringUtilities.randomString(10);
         Assert.assertEquals(10, result.length());
     }
 
     @Test
     public void testBase64EncodingAndDecoding() {
-        String encode = Functions.encode64("abc");
-        String result = Functions.decode64(encode);
+        String encode = StringUtilities.encode64("abc");
+        String result = StringUtilities.decode64(encode);
         Assert.assertEquals("abc", result);
     }
 
     @Test
     public void testIndent() {
-        String result = Functions.indent("abc");
+        String result = StringUtilities.indent("abc");
         Assert.assertEquals("\tabc\n", result);
     }
 
     @Test
     public void testSplitCamelcase() {
-        String result = Functions.splitCamelCase("aBcdeFghijKlmNo");
+        String result = StringUtilities.splitCamelCase("aBcdeFghijKlmNo");
         Assert.assertEquals("a bcde fghij klm no", result);
     }
 
     @Test
     public void testUncamelcase() {
-        String result = Functions.deleteLines("a\nb\nc\nd\n",1,3);
+        String result = TextLinesUtils.deleteLines("a\nb\nc\nd\n",1,3);
         Assert.assertEquals("b\nd\n", result);
     }
     @Test
     public void testAddLines() {
-        String result = Functions.addLinesAtPositions("this is line 1 \n" +
+        String result = TextLinesUtils.addLinesAtPositions("this is line 1 \n" +
                 "this is line 2\n" +
                 "this is line 3\n" +
                 "this is line 4\n" +
@@ -155,7 +156,7 @@ public class FunctionsTest {
     public void testAddLinesUsingMap() {
         Map<Integer,String> map = new LinkedHashMap<>();
         map.put(1,"line to be added in position 1");
-        String result = Functions.addLinesAtPositions("this is line 1 \n" +
+        String result = TextLinesUtils.addLinesAtPositions("this is line 1 \n" +
                 "this is line 2\n" +
                 "this is line 3\n" +
                 "this is line 4\n" +

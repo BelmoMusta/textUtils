@@ -1,17 +1,16 @@
 package musta.belmo.utils.textutils.commons;
 
+import musta.belmo.utils.textutils.commons.text.line.TextLinesUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
-import javax.swing.text.html.Option;
 import javax.xml.transform.*;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.StringReader;
+import java.io.StringWriter;
 import java.text.Normalizer;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -19,7 +18,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class Functions {
+public class StringUtilities {
 
     public static final boolean UPPER_CASE = true;
     public static final boolean LOWER_CASE = false;
@@ -76,12 +75,6 @@ public class Functions {
         return ret;
     }
 
-    public static String delete(String old, String regex) {
-        return Optional.ofNullable(old)
-                .map(str -> str.replaceAll(regex, ""))
-                .orElse(null);
-    }
-
     public static List<HighlightPosition> getHighlights(String inputText, String regex) {
         List<HighlightPosition> highlightPositions = new ArrayList<>();
         Pattern p = Pattern.compile(regex);
@@ -118,7 +111,7 @@ public class Functions {
 
     public static String splitCamelCase(String input) {
         return Stream.of(input.split(CAMELCASE_REGEX))
-                .map(Functions::uncapitalize)
+                .map(StringUtilities::uncapitalize)
                 .collect(Collectors.joining(" "));
     }
 
@@ -129,7 +122,7 @@ public class Functions {
     }
 
     public static String deleteSymbols(String input) {
-        return delete(input, SYMBOLS_REGEX);
+        return TextLinesUtils.delete(input, SYMBOLS_REGEX);
     }
 
 
@@ -161,119 +154,6 @@ public class Functions {
         return sb.toString();
     }
 
-    public static String deleteLines(String text, Integer... lines) {
-
-        StringBuilder sb = new StringBuilder();
-        Scanner sc = new Scanner(text);
-
-        List<Integer> list = Arrays.asList(lines);
-        int counter = 1;
-        while (sc.hasNextLine()) {
-            String line = sc.nextLine();
-            if (list.contains(Integer.valueOf(counter))) {
-                counter++;
-                continue;
-            }
-
-            sb.append(line).append('\n');
-            counter++;
-        }
-        sc.close();
-        return sb.toString();
-    }
-
-    public static String addLinesAtPositions(String text, String string) {
-        return addLinesAtPositions(text, convertToTextLines(string));
-    }
-
-    public static String addLinesAtPositions(String text, File file) {
-        return addLinesAtPositions(text, convertToTextLines(file));
-    }
-
-    public static String addLinesAtPositions(String text, Map<Integer, String> linesToAdd) {
-        return addLinesAtPositions(text, convertToTextLine(linesToAdd));
-    }
-
-    private static String addLinesAtPositions(String text, Set<TextLine> setOfLinesToAdd) {
-        final List<String> listLines = convertStringToListOfLines(text);
-        final List<String> mergedText = addLinesToPositions(setOfLinesToAdd, listLines);
-        return convertLinesToString(mergedText);
-    }
-
-    private static String convertLinesToString(List<String> listLines) {
-        return listLines.stream()
-                .collect(Collectors.joining("\n"));
-    }
-
-    private static List<String> addLinesToPositions(Set<TextLine> setOfLinesToAdd, List<String> listLines) {
-        final List<String> result = new ArrayList<>(listLines);
-        int insertedLines = 0;
-        Set<TextLine> textLinesWithPositivePositions = setOfLinesToAdd.stream()
-                .filter(textLine -> textLine.getLineNumber() > 0)
-                .collect(Collectors.toSet());
-        for (TextLine line : textLinesWithPositivePositions) {
-            int position = insertedLines + line.getLineNumber() - 1;
-            if (result.size() > position) {
-                result.add(position, line.getContent());
-            } else {
-                result.add(line.getContent());
-            }
-            insertedLines++;
-        }
-        List<String> negativeLines = addNegativeLinesAtFirst(setOfLinesToAdd);
-        negativeLines.addAll(result);
-        return negativeLines;
-    }
-
-    private static List<String> addNegativeLinesAtFirst(Set<TextLine> listLines) {
-        return listLines.stream().filter((textLine -> textLine.getLineNumber() <= 0))
-                .map(TextLine::getContent)
-                .collect(Collectors.toList());
-
-    }
-
-    private static List<String> convertStringToListOfLines(String text) {
-        return Optional.ofNullable(text)
-                .map(txt -> txt.split("\\n"))
-                .map(Arrays::asList)
-                .orElse(Arrays.asList())
-                .stream()
-                .collect(Collectors.toList());
-    }
-
-    private static Set<TextLine> convertToTextLine(Map<Integer, String> linesToAdd) {
-        return linesToAdd.entrySet().stream()
-                .map(entry -> new TextLine(entry.getKey(), entry.getValue()))
-                .collect(Collectors.toSet());
-    }
-
-    private static Set<TextLine> convertToTextLines(File linesToAdd) {
-        FileReader reader = null;
-        try {
-            reader = new FileReader(linesToAdd);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        return convertReadableTextToTextLines(reader);
-    }
-
-    private static Set<TextLine> convertToTextLines(String linesToAdd) {
-        final StringReader reader = new StringReader(linesToAdd);
-        return convertReadableTextToTextLines(reader);
-    }
-
-    private static Set<TextLine> convertReadableTextToTextLines(Readable readable) {
-        final Set<TextLine> setOfLines = new TreeSet<>();
-        if (Objects.nonNull(readable)) {
-            final Scanner sc = new Scanner(readable);
-            while (sc.hasNextLine()) {
-                TextLine textLine = new TextLine(sc.nextInt(), trimWitheSpacesAtStart(sc.nextLine()));
-                setOfLines.add(textLine);
-            }
-        }
-        return setOfLines;
-    }
-
     public static String formatXML(String text) {
         try {
             Source xmlInput = new StreamSource(new StringReader(removeCommentsFromXML(text)));
@@ -291,9 +171,6 @@ public class Functions {
 
     }
 
-    private static String trimWitheSpacesAtStart(String input) {
-        return delete(input, "^[\\t ]");
-    }
 
     public static String formatJSON(String input) {
         final String json;

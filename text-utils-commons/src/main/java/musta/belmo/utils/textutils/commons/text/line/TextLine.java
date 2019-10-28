@@ -1,4 +1,4 @@
-package musta.belmo.utils.textutils.commons;
+package musta.belmo.utils.textutils.commons.text.line;
 
 public class TextLine implements Comparable<TextLine> {
     private int lineNumber;

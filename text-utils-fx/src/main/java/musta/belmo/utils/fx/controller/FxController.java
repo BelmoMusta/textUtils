@@ -10,7 +10,7 @@ import javafx.scene.layout.VBox;
 import musta.belmo.utils.fx.gui.ActionButton;
 import musta.belmo.utils.textutils.commons.Actions;
 import musta.belmo.utils.textutils.commons.Commons;
-import musta.belmo.utils.textutils.commons.Functions;
+import musta.belmo.utils.textutils.commons.StringUtilities;
 import org.kordamp.ikonli.fontawesome.FontAwesome;
 import org.kordamp.ikonli.javafx.FontIcon;
 
@@ -68,19 +68,19 @@ public class FxController {
         if (actions != null) {
             switch (actions) {
                 case DELETE_EMPTY_LINES:
-                    inputText.setText(Functions.deleteEmptyLines(inputText.getText()));
+                    inputText.setText(StringUtilities.deleteEmptyLines(inputText.getText()));
                     break;
                 case CAPITALIZE:
-                    inputText.setText(Functions.capitalize(inputText.getText()));
+                    inputText.setText(StringUtilities.capitalize(inputText.getText()));
                     break;
                 case CAMELCASE:
-                    inputText.setText(Functions.camelCase(inputText.getText()));
+                    inputText.setText(StringUtilities.camelCase(inputText.getText()));
                     break;
                 case TO_UPPER_CASE:
-                    inputText.setText(Functions.changeCase(inputText.getText(), true));
+                    inputText.setText(StringUtilities.changeCase(inputText.getText(), true));
                     break;
                 case TO_LOWERCASE:
-                    inputText.setText(Functions.changeCase(inputText.getText(), false));
+                    inputText.setText(StringUtilities.changeCase(inputText.getText(), false));
                     break;
                 case TEST_REGEX:
                      /*
@@ -91,7 +91,7 @@ public class FxController {
                    */
                     break;
                 case CAPITALIZE_EACH_WORDS:
-                    inputText.setText(Functions.capitalizeEachWord(inputText.getText()));
+                    inputText.setText(StringUtilities.capitalizeEachWord(inputText.getText()));
                     break;
                 case DELETE:
                      /*
@@ -101,25 +101,25 @@ public class FxController {
                      */
                     break;
                 case REDUCE_WHITE_SPACE:
-                    inputText.setText(Functions.reduceWhiteSpaces(inputText.getText()));
+                    inputText.setText(StringUtilities.reduceWhiteSpaces(inputText.getText()));
                     break;
                 case ENCODE_64:
-                    inputText.setText(Functions.encode64(inputText.getText()));
+                    inputText.setText(StringUtilities.encode64(inputText.getText()));
                     break;
                 case DECODE_64:
-                    inputText.setText(Functions.decode64(inputText.getText()));
+                    inputText.setText(StringUtilities.decode64(inputText.getText()));
                     break;
                 case INDENT:
-                    inputText.setText(Functions.indent(inputText.getText()));
+                    inputText.setText(StringUtilities.indent(inputText.getText()));
                     break;
                 case UNCAMELCASE:
-                    inputText.setText(Functions.splitCamelCase(inputText.getText()));
+                    inputText.setText(StringUtilities.splitCamelCase(inputText.getText()));
                     break;
                 case REPLACE_ACCENTED:
-                    inputText.setText(Functions.replaceAccentedLetters(inputText.getText()));
+                    inputText.setText(StringUtilities.replaceAccentedLetters(inputText.getText()));
                     break;
                 case DELETE_SYMBOLS:
-                    inputText.setText(Functions.deleteSymbols(inputText.getText()));
+                    inputText.setText(StringUtilities.deleteSymbols(inputText.getText()));
                     break;
                 case RANDOM_STRING:
                      /*
@@ -170,6 +170,6 @@ public class FxController {
             }
         }
 
-        inputText.setText(Functions.deleteEmptyLines(inputText.getText()));
+        inputText.setText(StringUtilities.deleteEmptyLines(inputText.getText()));
     }
 }

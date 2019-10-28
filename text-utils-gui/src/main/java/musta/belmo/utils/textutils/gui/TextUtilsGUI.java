@@ -4,6 +4,7 @@ import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
 import musta.belmo.utils.textutils.commons.*;
+import musta.belmo.utils.textutils.commons.text.line.TextLinesUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.kordamp.ikonli.Ikon;
 import org.kordamp.ikonli.fontawesome.FontAwesome;
@@ -81,59 +82,59 @@ public class TextUtilsGUI {
         if (action != null) {
             switch (action) {
                 case DELETE_EMPTY_LINES:
-                    consumer = () -> inputText.setText(Functions.deleteEmptyLines(inputText.getText()));
+                    consumer = () -> inputText.setText(StringUtilities.deleteEmptyLines(inputText.getText()));
                     break;
                 case CAPITALIZE:
-                    consumer = () -> inputText.setText(Functions.capitalize(inputText.getText()));
+                    consumer = () -> inputText.setText(StringUtilities.capitalize(inputText.getText()));
                     break;
                 case CAMELCASE:
-                    consumer = () -> inputText.setText(Functions.camelCase(inputText.getText()));
+                    consumer = () -> inputText.setText(StringUtilities.camelCase(inputText.getText()));
                     break;
                 case TO_UPPER_CASE:
-                    consumer = () -> inputText.setText(Functions.changeCase(inputText.getText(), true));
+                    consumer = () -> inputText.setText(StringUtilities.changeCase(inputText.getText(), true));
                     break;
                 case TO_LOWERCASE:
-                    consumer = () -> inputText.setText(Functions.changeCase(inputText.getText(), false));
+                    consumer = () -> inputText.setText(StringUtilities.changeCase(inputText.getText(), false));
                     break;
                 case TEST_REGEX:
                     consumer = () -> {
                         String inputDialog = JOptionPane.showInputDialog(this.mPanel, "Enter REGEX pattern to highlight:", "");
-                        List<HighlightPosition> highlights = Functions.getHighlights(inputText.getText(),
+                        List<HighlightPosition> highlights = StringUtilities.getHighlights(inputText.getText(),
                                 inputDialog);
                         JOptionPane.showMessageDialog(TextUtilsGUI.this.mPanel, String.format("%d occurrences of %s", highlights.size(), inputDialog), "occurernces", JOptionPane.INFORMATION_MESSAGE);
                         inputText.addHighlisghts(highlights);
                     };
                     break;
                 case CAPITALIZE_EACH_WORDS:
-                    consumer = () -> inputText.setText(Functions.capitalizeEachWord(inputText.getText()));
+                    consumer = () -> inputText.setText(StringUtilities.capitalizeEachWord(inputText.getText()));
                     break;
                 case DELETE:
                     consumer = () -> {
                         String inputDialog = JOptionPane.showInputDialog(this.mPanel, "Enter REGEX pattern to delete:", "");
-                        String result = Functions.delete(inputText.getText(), inputDialog);
+                        String result = TextLinesUtils.delete(inputText.getText(), inputDialog);
                         inputText.setText(result);
                     };
                     break;
                 case REDUCE_WHITE_SPACE:
-                    consumer = () -> inputText.setText(Functions.reduceWhiteSpaces(inputText.getText()));
+                    consumer = () -> inputText.setText(StringUtilities.reduceWhiteSpaces(inputText.getText()));
                     break;
                 case ENCODE_64:
-                    consumer = () -> inputText.setText(Functions.encode64(inputText.getText()));
+                    consumer = () -> inputText.setText(StringUtilities.encode64(inputText.getText()));
                     break;
                 case DECODE_64:
-                    consumer = () -> inputText.setText(Functions.decode64(inputText.getText()));
+                    consumer = () -> inputText.setText(StringUtilities.decode64(inputText.getText()));
                     break;
                 case INDENT:
-                    consumer = () -> inputText.setText(Functions.indent(inputText.getText()));
+                    consumer = () -> inputText.setText(StringUtilities.indent(inputText.getText()));
                     break;
                 case UNCAMELCASE:
-                    consumer = () -> inputText.setText(Functions.splitCamelCase(inputText.getText()));
+                    consumer = () -> inputText.setText(StringUtilities.splitCamelCase(inputText.getText()));
                     break;
                 case REPLACE_ACCENTED:
-                    consumer = () -> inputText.setText(Functions.replaceAccentedLetters(inputText.getText()));
+                    consumer = () -> inputText.setText(StringUtilities.replaceAccentedLetters(inputText.getText()));
                     break;
                 case DELETE_SYMBOLS:
-                    consumer = () -> inputText.setText(Functions.deleteSymbols(inputText.getText()));
+                    consumer = () -> inputText.setText(StringUtilities.deleteSymbols(inputText.getText()));
                     break;
                 case RANDOM_STRING:
                     consumer = () -> {
@@ -145,7 +146,7 @@ public class TextUtilsGUI {
                                 length = 0;
                             }
                         }
-                        inputText.setText(Functions.randomString(length));
+                        inputText.setText(StringUtilities.randomString(length));
                     };
                     break;
 
@@ -157,7 +158,7 @@ public class TextUtilsGUI {
                         for (int i = 0; i < linesStr.length; i++) {
                             lines[i] = Integer.valueOf(linesStr[i]);
                         }
-                        String deleteLines = Functions.deleteLines(inputText.getText(), lines);
+                        String deleteLines = TextLinesUtils.deleteLines(inputText.getText(), lines);
 
                         inputText.setText(deleteLines);
                     };
@@ -176,21 +177,21 @@ public class TextUtilsGUI {
 
                         fileChooser.doWhenApproved(() -> {
                             File chosenFile = fileChooser.getSelectedFile();
-                            String textWithAddedLines = Functions.addLinesAtPositions(inputText.getText(), chosenFile);
+                            String textWithAddedLines = TextLinesUtils.addLinesAtPositions(inputText.getText(), chosenFile);
                             inputText.setText(textWithAddedLines);
                         }).doWhenCanceled(() -> System.out.println("File Chooser Canceled"));
                     };
                     break;
                 case FORMAT_XML:
                     consumer = () -> {
-                        String formattedXML = Functions.formatXML(inputText.getText());
+                        String formattedXML = StringUtilities.formatXML(inputText.getText());
                         inputText.setText(formattedXML);
                         System.out.println("LOL");
                     };
                     break;
                 case FORMAT_JSON:
                     consumer = () -> {
-                        String s = Functions.formatJSON(inputText.getText());
+                        String s = StringUtilities.formatJSON(inputText.getText());
                         inputText.setText(s);
                     };
                     break;
