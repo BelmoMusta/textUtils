@@ -190,5 +190,13 @@ public class StringUtilities {
         return text.replaceAll("<!--.*-->", "");
     }
 
-
+    public static String deleteDuplicateLines(String text) {
+        final Set<String> setOfLines = new LinkedHashSet<>();
+        final Scanner sc  = new Scanner(text);
+        while (sc.hasNextLine()) {
+            final String nextLine = sc.nextLine();
+            setOfLines.add(nextLine);
+        }
+        return String.join("\n", setOfLines);
+    }
 }

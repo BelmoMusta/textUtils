@@ -18,6 +18,7 @@ public enum Actions {
     DELETE_SYMBOLS("Delete symbols"),
     RANDOM_STRING("Random String"),
     DELETE_LINES("Delete lines"),
+    DELETE_DUPLICATE_LINES("Delete duplicate lines"),
     UNDO("undo"),
     REDO("redo"),
     ADD_LINE("Add line at"),

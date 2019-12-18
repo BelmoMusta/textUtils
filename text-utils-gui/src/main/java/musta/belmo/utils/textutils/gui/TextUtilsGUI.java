@@ -51,6 +51,7 @@ public class TextUtilsGUI {
     private JButton button20;
     private JButton button21;
     private JButton button22;
+    private JButton button23;
 
 
     private TextUtilsGUI() {
@@ -195,6 +196,12 @@ public class TextUtilsGUI {
                         inputText.setText(s);
                     };
                     break;
+                case DELETE_DUPLICATE_LINES:
+                    consumer = () -> {
+                        String s = StringUtilities.deleteDuplicateLines(inputText.getText());
+                        inputText.setText(s);
+                    };
+                    break;
             }
         }
 
@@ -228,6 +235,7 @@ public class TextUtilsGUI {
         listButton.add(button19);
         listButton.add(button20);
         listButton.add(button21);
+        listButton.add(button22);
 
         try {
             for (int i = 0; i < values.length; i++) {
