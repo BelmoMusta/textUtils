@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<auditLog transactionId="2c949e306ea2ff3d016f1619065a6a34">
+    <evenement date="2019-12-18T00:31:36.149+01:00" utilisateur="" ip="" requestReference="">G&#xE9;n&#xE9;ration de la preuve</evenement>
+    <evenement date="2019-12-18T00:03:42.886+01:00" utilisateur="courtage-et-systemes-api" ip="46.18.129.117" requestReference="">R&#xE9;cup&#xE9;ration du contrat sign&#xE9; final 1617491435 : nom='clause_beneficiaire'</evenement>
+    <evenement date="2019-12-18T00:03:39.094+01:00" utilisateur="courtage-et-systemes-api" ip="46.18.129.117" requestReference="">R&#xE9;cup&#xE9;ration du contrat sign&#xE9; final 1617491425 : nom=''</evenement>
+    <evenement date="2019-12-18T00:03:38.400+01:00" utilisateur="courtage-et-systemes-api" ip="46.18.129.117" requestReference="">Cl&#xF4;ture de la transaction</evenement>
+    <evenement date="2019-12-18T00:03:37.694+01:00" utilisateur="courtage-et-systemes-api" ip="46.18.129.117" requestReference="">Signature 'ALT' du contrat 1617491425</evenement>
+    <evenement date="2019-12-18T00:03:37.692+01:00" utilisateur="courtage-et-systemes-api" ip="46.18.129.117" requestReference="">Signature 'Serveur' du contrat 1617491425 pour signature 1617491881 (certificat : 'CN=DOCAPOSTE BPO - eSeal, SERIALNUMBER=79150EDP420, OU=0002 320217144, OID.2.5.4.97=NTRFR-320217144, O=DOCAPOSTE BPO, L=IVRY SUR SEINE, ST=94, C=FR')</evenement>
+    <evenement date="2019-12-18T00:03:37.050+01:00" utilisateur="courtage-et-systemes-api" ip="46.18.129.117" requestReference="">Signature 'ALT' du contrat 1617491435</evenement>
+    <evenement date="2019-12-18T00:03:37.048+01:00" utilisateur="courtage-et-systemes-api" ip="46.18.129.117" requestReference="">Signature 'Serveur' du contrat 1617491435 pour signature 1617491881 (certificat : 'CN=DOCAPOSTE BPO - eSeal, SERIALNUMBER=79150EDP420, OU=0002 320217144, OID.2.5.4.97=NTRFR-320217144, O=DOCAPOSTE BPO, L=IVRY SUR SEINE, ST=94, C=FR')</evenement>
+    <evenement date="2019-12-18T00:03:28.645+01:00" utilisateur="courtage-et-systemes-api" ip="46.18.129.117" requestReference="">Signature 'OTP' du contrat 1617491435 pour signature 1617491417 (certificat : 'CN=DOCAPOSTE BPO - eSeal, SERIALNUMBER=79150EDP420, OU=0002 320217144, OID.2.5.4.97=NTRFR-320217144, O=DOCAPOSTE BPO, L=IVRY SUR SEINE, ST=94, C=FR')</evenement>
+    <evenement date="2019-12-18T00:03:28.266+01:00" utilisateur="courtage-et-systemes-api" ip="46.18.129.117" requestReference="">Signature 'OTP' du contrat 1617491425 pour signature 1617491417 (certificat : 'CN=DOCAPOSTE BPO - eSeal, SERIALNUMBER=79150EDP420, OU=0002 320217144, OID.2.5.4.97=NTRFR-320217144, O=DOCAPOSTE BPO, L=IVRY SUR SEINE, ST=94, C=FR')</evenement>
+    <evenement date="2019-12-18T00:03:27.907+01:00" utilisateur="courtage-et-systemes-api" ip="46.18.129.117" requestReference="">OTP correct pour signature 1617491417</evenement>
+    <evenement date="2019-12-18T00:02:53.280+01:00" utilisateur="courtage-et-systemes-api" ip="46.18.129.117" requestReference="">R&#xE9;cup&#xE9;ration du contrat non finalis&#xE9; 1617491435 : nom='clause_beneficiaire'</evenement>
+    <evenement date="2019-12-18T00:02:52.040+01:00" utilisateur="courtage-et-systemes-api" ip="46.18.129.117" requestReference="">R&#xE9;cup&#xE9;ration du contrat non finalis&#xE9; 1617491425 : nom=''</evenement>
+    <evenement date="2019-12-18T00:02:51.198+01:00" utilisateur="courtage-et-systemes-api" ip="46.18.129.117" requestReference="">Envoi de l'OTP au 0033603284227 via SMS pour signature 1617491417</evenement>
+    <evenement date="2019-12-18T00:02:18.216+01:00" utilisateur="courtage-et-systemes-api" ip="46.18.129.117" requestReference="">Envoi de l'OTP au 0033603284227 via SMS pour signature 1617491417</evenement>
+    <evenement date="2019-12-18T00:02:17.767+01:00" utilisateur="courtage-et-systemes-api" ip="46.18.129.117" requestReference="">Cr&#xE9;ation du contractant pour signature 1617491417</evenement>
+    <evenement date="2019-12-18T00:02:17.647+01:00" utilisateur="courtage-et-systemes-api" ip="46.18.129.117" requestReference="">Ajout du contrat 1617491435 : nom='clause_beneficiaire', format de signature=PADES, archivage=true</evenement>
+    <evenement date="2019-12-18T00:02:17.636+01:00" utilisateur="courtage-et-systemes-api" ip="46.18.129.117" requestReference="">R&#xE9;ception du contrat : name='clause_beneficiaire', params.archive=</evenement>
+    <evenement date="2019-12-18T00:02:17.237+01:00" utilisateur="courtage-et-systemes-api" ip="46.18.129.117" requestReference="">Ajout du contrat 1617491425 : nom='', format de signature=PADES, archivage=true</evenement>
+    <evenement date="2019-12-18T00:02:17.161+01:00" utilisateur="courtage-et-systemes-api" ip="46.18.129.117" requestReference="">R&#xE9;ception du contrat : name='', params.archive=</evenement>
+    <evenement date="2019-12-18T00:02:16.413+01:00" utilisateur="courtage-et-systemes-api" ip="46.18.129.117" requestReference="">Initialisation de la transaction</evenement>
+</auditLog>
+
+        <?xml version="1.0" encoding="UTF-8"?>
+<transaction id="2c949e306ea2ff3d016f1619065a6a34" parentTransactionId="" etat="ARCHIVED" dateDebut="2019-12-18T00:02:16.408+01:00" dateCloture="2019-12-18T00:03:38.400+01:00" volumeArchive="3601991" dateTimeout="2020-03-17T00:02:16.408+01:00" testMode="false" referenceFournisseur="COURTAGE &amp; SYSTEMES" signatureDocParDoc="false">
+<offre id="447489516" code="COURTAGE-ET-SYSTEMES-PROPOSITION-SOUSCRIPTION" nom="PROPOSITION_SOUSCRIPTION" label="PROPOSITION_SOUSCRIPTION"/>
+<distributeur id="240077616" code="COURTAGE-ET-SYSTEMES-D" nom="COURTAGE &amp; SYSTEMES" label="COURTAGE &amp; SYSTEMES"/>
+<contrats>
+    <contrat id="1617491425" nom="" alias="" rang="" formatSignature="PADES" size="3259950" archivage="true" dateOriginal="2019-12-18T00:02:17.179+01:00">
+        <hash algo="SHA-256">3bc1a6b8c8578d04e9bc13199e0f99d9435e520b191d5400f72b52aedaeb4e3d</hash>
+    </contrat>
+    <contrat id="1617491435" nom="clause_beneficiaire" alias="" rang="" formatSignature="PADES" size="317854" archivage="true" dateOriginal="2019-12-18T00:02:17.640+01:00">
+        <hash algo="SHA-256">915b4b78687ee17ba09e9b408ca4b1468f2e95e30ed1c3bc37fc3c0c32fdb77c</hash>
+    </contrat>
+</contrats>
+<signaturesContractant>
+    <signatureContractant id="1617491417" position="1" numChamp="" typeSignature="OTP" signe="true" date="2019-12-18T00:03:28.644+01:00" otpAttendu="false">
+        <contractant id="1617491441" nom="STEPHANE" prenom="ROSIER" telephone="0033603284227" email="stephanerosier@yahoo.fr"/>
+        <certificat idCertificat="106759155345687809096395165501939750358" DN="CN=DOCAPOSTE BPO - eSeal, SERIALNUMBER=79150EDP420, OU=0002 320217144, OID.2.5.4.97=NTRFR-320217144, O=DOCAPOSTE BPO, L=IVRY SUR SEINE, ST=94, C=FR" issuerDN="CN=Certinomis - Prime CA, OU=0002 433998903, O=Certinomis, C=FR"/>
+    </signatureContractant>
+</signaturesContractant>
+<envois/>
+<properties/>
+</transaction>

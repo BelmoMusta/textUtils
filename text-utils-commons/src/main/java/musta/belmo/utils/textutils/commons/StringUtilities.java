@@ -186,13 +186,42 @@ public class StringUtilities {
         return json;
     }
 
+    public static String jsonDiff(String jsonA, String jsonB) {
+        JSONObject json = new LinkedJSONObject();
+
+        Object jsonAA = new JSONTokener(jsonA).nextValue();
+        Object jsonBB = new JSONTokener(jsonB).nextValue();
+        if (jsonAA instanceof JSONObject && jsonBB instanceof JSONObject) {
+            JSONObject jsonObjectA = new LinkedJSONObject(jsonA);
+            JSONObject jsonObjectB = new LinkedJSONObject(jsonB);
+            JSONObject maxKeysObject;
+            if (jsonObjectA.keySet().size() > jsonObjectB.keySet().size()) {
+                maxKeysObject = jsonObjectA;
+            } else {
+                maxKeysObject = jsonObjectB;
+            }
+            Iterator<String> iterator = maxKeysObject.keys();
+            while (iterator.hasNext()) {
+                String next = iterator.next();
+                Object a = jsonObjectA.has(next) ? jsonObjectA.get(next) : null;
+                Object b = jsonObjectB.has(next) ? jsonObjectB.get(next) : null;
+
+                if(a != null && !a.equals(b)) {
+                    json.put(next + "_inA",a);
+                    json.put(next +"_inB",b);
+                }
+            }
+        }
+        return json.toString();
+    }
+
     private static String removeCommentsFromXML(String text) {
         return text.replaceAll("<!--.*-->", "");
     }
 
     public static String deleteDuplicateLines(String text) {
         final Set<String> setOfLines = new LinkedHashSet<>();
-        final Scanner sc  = new Scanner(text);
+        final Scanner sc = new Scanner(text);
         while (sc.hasNextLine()) {
             final String nextLine = sc.nextLine();
             setOfLines.add(nextLine);
